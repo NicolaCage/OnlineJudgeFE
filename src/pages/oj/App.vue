@@ -5,6 +5,9 @@
       <transition name="fadeInUp" mode="out-in">
         <router-view></router-view>
       </transition>
+      <div class="footer">
+        <p v-html="website.website_footer"></p>
+      </div>
     </div>
     <BackTop></BackTop>
   </div>
