@@ -26,7 +26,7 @@
         <el-table-column prop="id" label="ID"></el-table-column>
 
         <el-table-column prop="username" label="Username"></el-table-column>
-
+        <el-table-column prop="phone" label="phone"></el-table-column>
         <el-table-column prop="create_time" label="Create Time">
           <template slot-scope="scope">
             {{scope.row.create_time | localtime }}
@@ -40,7 +40,6 @@
         </el-table-column>
 
         <el-table-column prop="real_name" label="Real Name"></el-table-column>
-
         <el-table-column prop="email" label="Email"></el-table-column>
 
         <el-table-column prop="admin_type" label="User Type">
@@ -97,6 +96,11 @@
           <el-table-column label="Email">
             <template slot-scope="{row}">
               {{row[2]}}
+            </template>
+          </el-table-column>
+          <el-table-column label="Phone">
+            <template slot-scope="{row}">
+              {{row[3]}}
             </template>
           </el-table-column>
         </el-table>
@@ -182,6 +186,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item :label="$t('m.Phone')" required>
+              <el-input v-model="user.phone"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item :label="$t('m.User_Email')" required>
               <el-input v-model="user.email"></el-input>
             </el-form-item>
@@ -209,7 +218,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <el-form-item :label="$t('m.Two_Factor_Auth')">
               <el-switch
                 v-model="user.two_factor_auth"

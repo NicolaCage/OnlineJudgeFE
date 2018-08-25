@@ -84,6 +84,7 @@ export const m = {
   // Register.vue
   RegisterUsername: 'Username',
   Email_Address: 'Email Address',
+  Phone: 'Phone Number',
   RegisterPassword: 'Password',
   Password_Again: 'Password Again',
   Captcha: 'Captcha',

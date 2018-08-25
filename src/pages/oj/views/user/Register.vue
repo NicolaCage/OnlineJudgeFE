@@ -11,6 +11,11 @@
         <Icon type="ios-email-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
+      <FormItem prop="phone">
+        <Input v-model="formRegister.phone" :placeholder="$t('m.Phone')" size="large" @on-enter="handleRegister">
+        <Icon type="ios-telephone-outline" slot="prepend"></Icon>
+        </Input>
+      </FormItem>
       <FormItem prop="password">
         <Input type="password" v-model="formRegister.password" :placeholder="$t('m.RegisterPassword')" size="large" @on-enter="handleRegister">
         <Icon type="ios-locked-outline" slot="prepend"></Icon>
@@ -66,7 +71,7 @@
     },
     data () {
       const CheckUsernameNotExist = (rule, value, callback) => {
-        api.checkUsernameOrEmail(value, undefined).then(res => {
+        api.checkUsernameOrEmail(value, undefined, undefined).then(res => {
           if (res.data.data.username === true) {
             callback(new Error('The username already exists.'))
           } else {
@@ -75,9 +80,18 @@
         }, _ => callback())
       }
       const CheckEmailNotExist = (rule, value, callback) => {
-        api.checkUsernameOrEmail(undefined, value).then(res => {
+        api.checkUsernameOrEmail(undefined, value, undefined).then(res => {
           if (res.data.data.email === true) {
             callback(new Error('The email already exists'))
+          } else {
+            callback()
+          }
+        }, _ => callback())
+      }
+      const CheckPhoneNotExist = (rule, value, callback) => {
+        api.checkUsernameOrEmail(undefined, undefined, value).then(res => {
+          if (res.data.data.phone === true) {
+            callback(new Error('The phone already exists'))
           } else {
             callback()
           }
@@ -103,6 +117,7 @@
         formRegister: {
           username: '',
           password: '',
+          phone: '',
           passwordAgain: '',
           email: '',
           captcha: ''
@@ -115,6 +130,10 @@
           email: [
             {required: true, type: 'email', trigger: 'blur'},
             {validator: CheckEmailNotExist, trigger: 'blur'}
+          ],
+          phone: [
+            {required: true, trigger: 'blur'},
+            {validator: CheckPhoneNotExist, trigger: 'blur'}
           ],
           password: [
             {required: true, trigger: 'blur', min: 6, max: 20},

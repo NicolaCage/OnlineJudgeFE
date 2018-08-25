@@ -66,8 +66,11 @@
     <Form ref="formProfile" :model="formProfile">
       <Row type="flex" :gutter="30" justify="space-around">
         <Col :span="11">
-          <FormItem label="Real Name">
-            <Input v-model="formProfile.real_name"/>
+          <FormItem label="Username">
+            <Input v-model="formProfile.username" :disabled=true />
+          </FormItem>
+          <FormItem label="Phone">
+            <Input v-model="formProfile.phone"/>
           </FormItem>
           <Form-item label="School">
             <Input v-model="formProfile.school"/>
@@ -86,6 +89,9 @@
         </Col>
 
         <Col :span="11">
+          <FormItem label="Real Name">
+            <Input v-model="formProfile.real_name"/>
+          </FormItem>
           <Form-item label="Mood">
             <Input v-model="formProfile.mood"/>
           </Form-item>
@@ -132,12 +138,16 @@
           blog: '',
           school: '',
           github: '',
-          language: ''
+          language: '',
+          username: '',
+          phone: ''
         }
       }
     },
     mounted () {
       let profile = this.$store.state.user.profile
+      this.formProfile['username'] = this.$store.state.user.profile.user.username
+      this.formProfile['phone'] = this.$store.state.user.profile.user.phone
       Object.keys(this.formProfile).forEach(element => {
         if (profile[element] !== undefined) {
           this.formProfile[element] = profile[element]
