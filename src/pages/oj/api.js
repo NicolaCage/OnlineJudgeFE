@@ -1,28 +1,27 @@
 import Vue from 'vue'
 import store from '@/store'
 import axios from 'axios'
-
 Vue.prototype.$http = axios
 axios.defaults.baseURL = '/api'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
-
+const bestUrl = 'http://www.housegod.cn/api/'
 export default {
   getWebsiteConf (params) {
-    return ajax('website', 'get', {
+    return ajax(bestUrl+'website', 'get', {
       params
     })
   },
   getAnnouncementList () {
-    return ajax('announcement', 'get')
+    return ajax(bestUrl+'announcement', 'get')
   },
   login (data) {
-    return ajax('login', 'post', {
+    return ajax(bestUrl+'login', 'post', {
       data
     })
   },
   checkUsernameOrEmail (username, email) {
-    return ajax('check_username_or_email', 'post', {
+    return ajax(bestUrl+'check_username_or_email', 'post', {
       data: {
         username,
         email
@@ -31,82 +30,82 @@ export default {
   },
   // 注册
   register (data) {
-    return ajax('register', 'post', {
+    return ajax(bestUrl+'register', 'post', {
       data
     })
   },
   logout () {
-    return ajax('logout', 'get')
+    return ajax(bestUrl+'logout', 'get')
   },
   getCaptcha () {
-    return ajax('captcha', 'get')
+    return ajax(bestUrl+'captcha', 'get')
   },
   getUserInfo (username = undefined) {
-    return ajax('profile', 'get', {
+    return ajax(bestUrl+'profile', 'get', {
       params: {
         username
       }
     })
   },
   updateProfile (profile) {
-    return ajax('profile', 'put', {
+    return ajax(bestUrl+'profile', 'put', {
       data: profile
     })
   },
   freshDisplayID (userID) {
-    return ajax('profile/fresh_display_id', 'get', {
+    return ajax(bestUrl+'profile/fresh_display_id', 'get', {
       params: {
         user_id: userID
       }
     })
   },
   twoFactorAuth (method, data) {
-    return ajax('two_factor_auth', method, {
+    return ajax(bestUrl+'two_factor_auth', method, {
       data
     })
   },
   tfaRequiredCheck (username) {
-    return ajax('tfa_required', 'post', {
+    return ajax(bestUrl+'tfa_required', 'post', {
       data: {
         username
       }
     })
   },
   getSessions () {
-    return ajax('sessions', 'get')
+    return ajax(bestUrl+'sessions', 'get')
   },
   deleteSession (sessionKey) {
-    return ajax('sessions', 'delete', {
+    return ajax(bestUrl+'sessions', 'delete', {
       params: {
         session_key: sessionKey
       }
     })
   },
   applyResetPassword (data) {
-    return ajax('apply_reset_password', 'post', {
+    return ajax(bestUrl+'apply_reset_password', 'post', {
       data
     })
   },
   resetPassword (data) {
-    return ajax('reset_password', 'post', {
+    return ajax(bestUrl+'reset_password', 'post', {
       data
     })
   },
   changePassword (data) {
-    return ajax('change_password', 'post', {
+    return ajax(bestUrl+'change_password', 'post', {
       data
     })
   },
   changeEmail (data) {
-    return ajax('change_email', 'post', {
+    return ajax(bestUrl+'change_email', 'post', {
       data
     })
   },
   getLanguages () {
-    return ajax('languages', 'get')
+    return ajax(bestUrl+'languages', 'get')
   },
   getProblemTagList () {
-    return ajax('problem/tags', 'get')
+    return ajax(bestUrl+'problem/tags', 'get')
   },
   getProblemList (offset, limit, searchParams) {
     let params = {
@@ -119,15 +118,15 @@ export default {
         params[element] = searchParams[element]
       }
     })
-    return ajax('problem', 'get', {
+    return ajax(bestUrl+'problem', 'get', {
       params: params
     })
   },
   pickone () {
-    return ajax('pickone', 'get')
+    return ajax(bestUrl+'pickone', 'get')
   },
   getProblem (problemID) {
-    return ajax('problem', 'get', {
+    return ajax(bestUrl+'problem', 'get', {
       params: {
         problem_id: problemID
       }
@@ -145,26 +144,26 @@ export default {
         }
       })
     }
-    return ajax('contests', 'get', {
+    return ajax(bestUrl+'contests', 'get', {
       params
     })
   },
   getContest (id) {
-    return ajax('contest', 'get', {
+    return ajax(bestUrl+'contest', 'get', {
       params: {
         id
       }
     })
   },
   getContestAccess (contestID) {
-    return ajax('contest/access', 'get', {
+    return ajax(bestUrl+'contest/access', 'get', {
       params: {
         contest_id: contestID
       }
     })
   },
   checkContestPassword (contestID, password) {
-    return ajax('contest/password', 'post', {
+    return ajax(bestUrl+'contest/password', 'post', {
       data: {
         contest_id: contestID,
         password
@@ -172,21 +171,21 @@ export default {
     })
   },
   getContestAnnouncementList (contestId) {
-    return ajax('contest/announcement', 'get', {
+    return ajax(bestUrl+'contest/announcement', 'get', {
       params: {
         contest_id: contestId
       }
     })
   },
   getContestProblemList (contestId) {
-    return ajax('contest/problem', 'get', {
+    return ajax(bestUrl+'contest/problem', 'get', {
       params: {
         contest_id: contestId
       }
     })
   },
   getContestProblem (problemID, contestID) {
-    return ajax('contest/problem', 'get', {
+    return ajax(bestUrl+'contest/problem', 'get', {
       params: {
         contest_id: contestID,
         problem_id: problemID
@@ -194,47 +193,47 @@ export default {
     })
   },
   submitCode (data) {
-    return ajax('submission', 'post', {
+    return ajax(bestUrl+'submission', 'post', {
       data
     })
   },
   getSubmissionList (offset, limit, params) {
     params.limit = limit
     params.offset = offset
-    return ajax('submissions', 'get', {
+    return ajax(bestUrl+'submissions', 'get', {
       params
     })
   },
   getContestSubmissionList (offset, limit, params) {
     params.limit = limit
     params.offset = offset
-    return ajax('contest_submissions', 'get', {
+    return ajax(bestUrl+'contest_submissions', 'get', {
       params
     })
   },
   getSubmission (id) {
-    return ajax('submission', 'get', {
+    return ajax(bestUrl+'submission', 'get', {
       params: {
         id
       }
     })
   },
   submissionExists (problemID) {
-    return ajax('submission_exists', 'get', {
+    return ajax(bestUrl+'submission_exists', 'get', {
       params: {
         problem_id: problemID
       }
     })
   },
   submissionRejudge (id) {
-    return ajax('admin/submission/rejudge', 'get', {
+    return ajax(bestUrl+'admin/submission/rejudge', 'get', {
       params: {
         id
       }
     })
   },
   updateSubmission (data) {
-    return ajax('submission', 'put', {
+    return ajax(bestUrl+'submission', 'put', {
       data
     })
   },
@@ -244,22 +243,22 @@ export default {
       limit,
       rule
     }
-    return ajax('user_rank', 'get', {
+    return ajax(bestUrl+'user_rank', 'get', {
       params
     })
   },
   getContestRank (params) {
-    return ajax('contest_rank', 'get', {
+    return ajax(bestUrl+'contest_rank', 'get', {
       params
     })
   },
   getACMACInfo (params) {
-    return ajax('admin/contest/acm_helper', 'get', {
+    return ajax(bestUrl+'admin/contest/acm_helper', 'get', {
       params
     })
   },
   updateACInfoCheckedStatus (data) {
-    return ajax('admin/contest/acm_helper', 'put', {
+    return ajax(bestUrl+'admin/contest/acm_helper', 'put', {
       data
     })
   }
@@ -302,6 +301,7 @@ function ajax (url, method, options) {
     }, res => {
       // API请求异常，一般为Server error 或 network error
       reject(res)
+      console.log(res.data.data)
       Vue.prototype.$error(res.data.data)
     })
   })

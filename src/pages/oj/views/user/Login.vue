@@ -35,6 +35,7 @@
   import { mapGetters, mapActions } from 'vuex'
   import api from '@oj/api'
   import { FormMixin } from '@oj/components/mixins'
+  
 
   export default {
     mixins: [FormMixin],
@@ -82,6 +83,7 @@
           if (!this.tfaRequired) {
             delete formData['tfa_code']
           }
+          console.log(formData)
           api.login(formData).then(res => {
             this.btnLoginLoading = false
             this.changeModalStatus({visible: false})
