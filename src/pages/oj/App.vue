@@ -73,6 +73,8 @@
   .content-app {
     margin-top: 80px;
     padding: 0 2%;
+    background:#ffffff;
+    padding-top: 47px;
   }
 
   .footer {

@@ -20,7 +20,8 @@ import '@/styles/index.less'
 import highlight from '@/plugins/highlight'
 import katex from '@/plugins/katex'
 import filters from '@/utils/filters.js'
-
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import ECharts from 'vue-echarts/components/ECharts.vue'
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/chart/line'
@@ -42,6 +43,7 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false
 Vue.use(iView, {locale})
 
+Vue.use(ElementUI)
 Vue.use(VueClipboard)
 Vue.use(highlight)
 Vue.use(katex)
