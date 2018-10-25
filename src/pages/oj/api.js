@@ -3,6 +3,7 @@ import store from '@/store'
 import axios from 'axios'
 Vue.prototype.$http = axios
 axios.defaults.baseURL = '/api'
+axios.defaults.withCredentials = true
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 const bestUrl = 'http://www.housegod.cn/api/'

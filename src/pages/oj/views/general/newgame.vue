@@ -48,9 +48,11 @@
    }
    .contnet{
         width:100%;
-        height:640px;
+        height:494px;
+        padding-bottom: 0;
         img{
             margin-top: 24px;
+
             display: inline-block;
             box-shadow:0 2px 4px 0 rgba(0,0,0,0.20);
             border-radius:8px;

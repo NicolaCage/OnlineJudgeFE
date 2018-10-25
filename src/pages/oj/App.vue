@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div style="background:#ffffff">
     <NavBar></NavBar>
     <div class="content-app">
       <transition name="fadeInUp" mode="out-in">
         <router-view></router-view>
       </transition>
-      <div class="footer">
+      <!-- <div class="footer">
         <p v-html="website.website_footer"></p>
-      </div>
+      </div> -->
     </div>
+    <Footer class="footer"></Footer>
     <BackTop></BackTop>
   </div>
 </template>
@@ -16,11 +17,12 @@
 <script>
   import { mapActions, mapState } from 'vuex'
   import NavBar from '@oj/components/NavBar.vue'
-
+  import Footer from '@oj/components/Footer.vue'
   export default {
     name: 'app',
     components: {
-      NavBar
+      NavBar,
+      Footer
     },
     data () {
       return {
@@ -78,8 +80,8 @@
   }
 
   .footer {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 108px;
+    padding-bottom: 10px;
     text-align: center;
     font-size: small;
   }

@@ -1,44 +1,38 @@
 <template>
   <div id="header">
     <Menu theme="light" mode="horizontal" @on-select="handleRoute" :active-name="activeMenu" class="oj-menu">
-      <div class="logo"><span>{{website.website_name}}</span></div>
-      <Menu-item name="/">
-        <Icon type="home"></Icon>
+      <div class="logo"><img src="/static/img/icon.png" alt=""></div>
+      <Menu-item name="/" class="nav-title">
         {{$t('m.Home')}}
       </Menu-item>
-      <Menu-item name="/problems">
-        <Icon type="ios-keypad"></Icon>
+      <Menu-item name="/problems" class="nav-title">
         {{$t('m.NavProblems')}}
       </Menu-item>
-      <Menu-item name="/contests">
-        <Icon type="trophy"></Icon>
+      <Menu-item name="/contests" class="nav-title">
         {{$t('m.Contests')}}
       </Menu-item>
-      <Menu-item name="/status">
-        <Icon type="ios-pulse-strong"></Icon>
+      <Menu-item name="/status" class="nav-title">
         {{$t('m.NavStatus')}}
       </Menu-item>
-      <Submenu name="rank">
+      <Submenu name="rank" class="nav-title">
         <template slot="title">
-          <Icon type="podium"></Icon>
           {{$t('m.Rank')}}
         </template>
-        <Menu-item name="/acm-rank">
+        <Menu-item name="/acm-rank" class="nav-title">
           {{$t('m.ACM_Rank')}}
         </Menu-item>
-        <Menu-item name="/oi-rank">
+        <Menu-item name="/oi-rank" class="nav-title">
           {{$t('m.OI_Rank')}}
         </Menu-item>
       </Submenu>
-      <Submenu name="about">
+      <Submenu name="about" class="nav-title">
         <template slot="title">
-          <Icon type="information-circled"></Icon>
           {{$t('m.About')}}
         </template>
-        <Menu-item name="/about">
+        <Menu-item name="/about" class="nav-title">
           {{$t('m.Judger')}}
         </Menu-item>
-        <Menu-item name="/FAQ">
+        <Menu-item name="/FAQ" class="nav-title">
           {{$t('m.FAQ')}}
         </Menu-item>
       </Submenu>
@@ -129,7 +123,7 @@
 
 <style lang="less" scoped>
   #header {
-    min-width: 1100px;
+    min-width: 1200px;
     position: fixed;
     top: 0;
     left: 0;
@@ -140,14 +134,28 @@
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
     .oj-menu {
       background: #fdfdfd;
+      width: 1200px;
+      margin: 0 auto;
+      
+      .nav-title{
+        font-family:'PingFangSC-Regular';
+        font-size:14px;
+        text-align: center;
+         
+      }
     }
 
     .logo {
-      margin-left: 2%;
-      margin-right: 2%;
-      font-size: 20px;
+      margin-right: 11.16%;
       float: left;
-      line-height: 60px;
+      width:169px;
+      height: 60px;
+      img{
+        width: 100%;
+        height: 43px;
+        display: inline-block;
+        margin-top: 8px;
+      }
     }
 
     .drop-menu {

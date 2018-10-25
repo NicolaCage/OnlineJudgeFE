@@ -19,12 +19,11 @@
     </div>
     </div>
     <Latestnews class="announcement"></Latestnews>
-    ;
-    <div style="margin-top: 58px">
+    <div style="margin-top: 58px;position: relative;">
       <Latestproblem class="latestproblem"></Latestproblem>
       <Ranking class="ranking"></Ranking>
       <Newgame class="newgame"></Newgame>
-      <img src="/static/img/bg-5.png" alt="" class="btn-img">
+      <Advert class="btn-img"></Advert>
     </div>
     </Col>
   </Row>
@@ -36,6 +35,7 @@
   import Latestproblem from './Latestproblem.vue'
   import Ranking from './ranking.vue'
   import Newgame from './newgame.vue'
+  import Advert from './advert.vue'
   import api from '@oj/api'
   import time from '@/utils/time'
   import { CONTEST_STATUS } from '@/utils/constants'
@@ -47,7 +47,8 @@
       Latestnews,
       Latestproblem,
       Ranking,
-      Newgame
+      Newgame,
+      Advert
     },
     data () {
       return {
@@ -146,16 +147,17 @@
     width: 30.75%;
     display: inline-block;
     float: right;
-    margin-top: 0;
   }
   .btn-img{
     width: 30.75%;
     display: inline-block;
-    float: right;
+    position: absolute;
+    right: 0;
+    overflow: hidden;
     box-shadow:0 2px 4px 0 rgba(0,0,0,0.20);
     border-radius:8px;
     height:224px;
-    margin-top: -365px;
+    bottom: 5px;
   }
   .announcement {
   
