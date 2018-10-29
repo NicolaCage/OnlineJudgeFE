@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="title-text">最新答题动态</span> 点击代码和题目编号可查看详情哦～ <a>查看更多 >></a>
+      <span class="title-text">最新答题动态</span> 点击代码和题目编号可查看详情哦～ <router-link :to="{name:'problem-list'}">查看更多 >></router-link>
     </div>
     <div class="contnet">
         <el-row :gutter="0">

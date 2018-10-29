@@ -6,7 +6,7 @@ axios.defaults.baseURL = '/api'
 axios.defaults.withCredentials = true
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
-const bestUrl = 'http://www.housegod.cn/api/'
+const bestUrl = ''
 export default {
   getWebsiteConf (params) {
     return ajax(bestUrl+'website', 'get', {

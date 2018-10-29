@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="title-text">最新习题</span> 来试下你的身手吧～ <a>查看更多 >></a>
+      <span class="title-text">最新习题</span> 来试下你的身手吧～ <router-link :to="{name:'problem-list'}"> 查看更多 </router-link>
     </div>
     <div class="contnet">
         <el-row :gutter="0">

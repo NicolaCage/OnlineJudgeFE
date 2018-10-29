@@ -2,7 +2,7 @@
   <Row type="flex" justify="space-around">
     <Col :span="22">
     <div>
-    <div shadow v-if="contests.length" class="contest banner">
+    <div shadow   class="contest banner">
        <img src="/static/img/bg-5.png" alt="" srcset="">
     </div>
     <div class="user">

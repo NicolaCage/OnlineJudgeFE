@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="title-text">排行榜</span> AC排行榜 <a>查看更多 >></a>
+      <span class="title-text">排行榜</span> AC排行榜 <router-link :to="{name:'acm-rank'}">查看更多 >></router-link>
     </div>
     <div class="contnet">
         <el-row :gutter="0">
