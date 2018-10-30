@@ -3,7 +3,7 @@
     <NavBar></NavBar>
     <div class="content-app">
       <transition name="fadeInUp" mode="out-in">
-        <router-view></router-view>
+        <router-view class="content"></router-view>
       </transition>
       <!-- <div class="footer">
         <p v-html="website.website_footer"></p>
@@ -71,10 +71,10 @@
     }
   }
 
-
-  .content-app {
-    margin-top: 80px;
+  .content{
     padding: 0 2%;
+  }
+  .content-app {
     background:#ffffff;
     padding-top: 47px;
   }

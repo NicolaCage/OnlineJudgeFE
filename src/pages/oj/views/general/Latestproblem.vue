@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="title-text">最新习题</span> 来试下你的身手吧～ <router-link :to="{name:'problem-list'}"> 查看更多 </router-link>
+      <span class="title-text">最新习题</span> 来试下你的身手吧～ <router-link :to="{name:'problem-list'}"> 查看更多 >></router-link>
     </div>
     <div class="contnet">
         <el-row :gutter="0">
@@ -11,18 +11,18 @@
             <el-col :span="4"><div class="text content-val">分值</div></el-col>
             <el-col :span="4"><div class="text content-val">AC比例</div></el-col>
         </el-row>
-        <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.problem_num" :class="{active:index%2==0}" class="content-val">
-            <el-col :span="5"><div class="text">{{announcement.problem_num}}</div></el-col>
-            <el-col :span="6"><div class="text" style="color:#298cf1">{{announcement.problem_name}}</div></el-col>
+        <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement._id" :class="{active:index%2==0}" class="content-val">
+            <el-col :span="5"><div class="text">{{announcement._id}}</div></el-col>
+            <el-col :span="6"><div class="text" style="color:#298cf1;cursor:pointer;" @click="goProblem(announcement._id)">{{announcement.title}}</div></el-col>
             <el-col :span="5">
                 <div class="text statu">
-                    <p v-if="announcement.statu==0">低阶</p> 
-                    <p v-if="announcement.statu==1" style="background:#14bd68">中阶</p> 
-                    <p v-if="announcement.statu==2" style="background:#298cf1">高阶</p>  
+                    <p v-if="announcement.difficulty=='Low'">低阶</p> 
+                    <p v-if="announcement.difficulty=='Mid'" style="background:#3684ec">中阶</p> 
+                    <p v-if="announcement.difficulty=='High'" style="background:#7f50ff">高阶</p>  
                 </div>
             </el-col>
-            <el-col :span="4"><div class="text" style="color:#298cf1">{{announcement.score}}</div></el-col>
-            <el-col :span="4"><div class="text">{{announcement.ac}}</div></el-col>
+            <el-col :span="4"><div class="text" style="color:#298cf1">{{announcement.submission_number}}</div></el-col>
+            <el-col :span="4"><div class="text">{{announcement.accepted_number/announcement.submission_number|ac}}</div></el-col>
         </el-row>
     </div>
   </div>
@@ -42,54 +42,30 @@
         limit: 10,
         total: 10,
         btnLoading: false,
-        announcements: [
-            {
-                problem_num:'201',
-                problem_name:'Jam的计数法',
-                statu:1,
-                num:157,
-                score:124,
-                ac:'36.5%',
-            },
-            {
-                problem_num:'21',
-                problem_name:'数字游戏',
-                statu:0,
-                num:157,
-                score:124,
-                ac:'48.5%',
-            },
-            {
-                problem_num:'233',
-                problem_name:'计算分数的浮点数值',
-                statu:2,
-                num:157,
-                score:124,
-                ac:'36.5%',
-            },
-            {
-                problem_num:'321',
-                problem_name:'奥小白摘苹果',
-                statu:1,
-                num:157,
-                score:124,
-                ac:'36.5%',
-            },
-           {
-                problem_num:'121',
-                problem_name:'小白的数字迷宫',
-                statu:0,
-                num:157,
-                score:124,
-                ac:'36.5%',
-            },
-        ],
+        announcements: [],
         announcement: '',
         listVisible: true,
 
       }
-    }
-     
+    },
+    methods:{
+        goProblem(id){
+            this.$router.push({name: 'problem-details', params: {problemID: id}})
+        }
+    },
+    filters: {
+        ac(val){
+            val=val*100;
+            return val.toFixed(2)+'%';
+        }
+    },
+    beforeCreate() {
+        api.getProblemList(0, 5, {page:1}).then(res => {
+           this.announcements=res.data.data.results
+        }).catch(() => {
+            alert('网络错误')
+        })
+    },
   }
 </script>
 
@@ -129,7 +105,7 @@
                 font-size:12px;
                 color:#ffffff;
                 text-align:center;
-                background:#fb9b01;
+                background:#00c7fa;
                 border-radius:4px;
                 width:78px;
                 height:22px;

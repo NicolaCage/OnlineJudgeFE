@@ -1,70 +1,70 @@
 export const JUDGE_STATUS = {
   '-2': {
-    name: 'Compile Error',
+    name: '编译错误',
     short: 'CE',
-    color: 'yellow',
+    color: '#f90',
     type: 'warning'
   },
   '-1': {
-    name: 'Wrong Answer',
+    name: '错误答案',
     short: 'WA',
     color: 'red',
     type: 'error'
   },
   '0': {
-    name: 'Accepted',
+    name: '通过',
     short: 'AC',
-    color: 'green',
+    color: '#2a71dd',
     type: 'success'
   },
   '1': {
-    name: 'Time Limit Exceeded',
+    name: '超出时间限制',
     short: 'TLE',
     color: 'red',
     type: 'error'
   },
   '2': {
-    name: 'Time Limit Exceeded',
+    name: '超出时间限制',
     short: 'TLE',
     color: 'red',
     type: 'error'
   },
   '3': {
-    name: 'Memory Limit Exceeded',
+    name: '超出内存限制',
     short: 'MLE',
     color: 'red',
     type: 'error'
   },
   '4': {
-    name: 'Runtime Error',
+    name: '运行时错误',
     short: 'RE',
     color: 'red',
     type: 'error'
   },
   '5': {
-    name: 'System Error',
+    name: '系统错误',
     short: 'SE',
     color: 'red',
     type: 'error'
   },
   '6': {
-    name: 'Pending',
+    name: '等待评测',
     color: 'yellow',
     type: 'warning'
   },
   '7': {
-    name: 'Judging',
+    name: '正在评测',
     color: 'blue',
     type: 'info'
   },
   '8': {
-    name: 'Partial Accepted',
+    name: '部分正确',
     short: 'PAC',
-    color: 'blue',
+    color: '#298cf1',
     type: 'info'
   },
   '9': {
-    name: 'Submitting',
+    name: '提交中',
     color: 'yellow',
     type: 'warning'
   }

@@ -1,19 +1,19 @@
 <template>
-  <Row type="flex" justify="space-around">
+  <Row type="flex" justify="space-around" class="home-bg">
     <Col :span="22">
     <div>
     <div shadow   class="contest banner">
-       <img src="/static/img/bg-5.png" alt="" srcset="">
+       <img src="/static/img/bg-1.png" alt="" srcset="">
     </div>
     <div class="user">
         <div class="user-img">
-          <img src="/static/img/bg-5.png" alt="">
+          <img src="/static/img/teacher5.png" alt="">
         </div>
-        <p class="user-name">于易阳</p>
+        <p class="user-name">{{user.username}}</p>
         <div class="user-info">
-          <div style="flex:1">答题数 <p>79</p></div>
-          <div style="flex:1">提交次数 <p>292</p></div>
-          <div style="flex:1">分数 <p>6703</p></div>
+          <div style="flex:1">答题数 <p>{{user.accepted_number}}</p></div>
+          <div style="flex:1">提交次数 <p>{{user.submission_number}}</p></div>
+          <div style="flex:1">分数 <p>{{user.total_score}}</p></div>
           <div style="flex:1">排名 <p>1</p></div>
         </div>
     </div>
@@ -53,8 +53,17 @@
     data () {
       return {
         contests: [],
-        index: 0
+        index: 0,
+        user:{}
       }
+    },
+    beforeCreate() {
+        api.getUserRank(0, 1, {rule:'ACM'}).then(res => {
+           this.user=res.data.data.results[0]
+           this.user.username=res.data.data.results[0].user.username
+        }).catch(() => {
+            alert('网络错误')
+        })
     },
     mounted () {
       
@@ -78,6 +87,12 @@
 </script>
 
 <style lang="less" scoped>
+  .home-bg{
+    padding-top: 60px;
+    background-size: 100% 100%;
+    width: 100%;
+    background: url('/static/img/Bg-0.png') no-repeat center -80px;
+  }
   .banner{
     background:#ebebeb;
     box-shadow:0 2px 4px 0 rgba(0,0,0,0.20);

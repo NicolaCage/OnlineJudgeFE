@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <span class="title-text">新比赛</span> 最新赛事 <a>查看更多 >></a>
+      <span class="title-text">新比赛</span> 最新赛事 <router-link :to="{name:'contest-list'}">查看更多 >></router-link>
     </div>
     <div class="contnet">
         <img src="/static/img/bg-4.png" alt="">

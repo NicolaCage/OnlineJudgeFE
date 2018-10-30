@@ -9,10 +9,10 @@
             <el-col :span="8"><div class="text content-val">选手</div></el-col>
             <el-col :span="8"><div class="text content-val">AC</div></el-col>
         </el-row>
-        <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.code" :class="{active:index%2==0}" class="content-val">
-            <el-col :span="8"><div class="text">{{announcement.num}}</div></el-col>
-            <el-col :span="8"><div class="text" style="color:#298cf1">{{announcement.name}}</div></el-col>
-            <el-col :span="8"><div class="text">{{announcement.ac}}</div></el-col>
+        <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.id" :class="{active:index%2==0}" class="content-val">
+            <el-col :span="8"><div class="text">{{index+1}}</div></el-col>
+            <el-col :span="8"><div class="text" style="color:#298cf1;font-size:16px;">{{announcement.user.username}}</div></el-col>
+            <el-col :span="8"><div class="text" style="font-size:16px;">{{announcement.accepted_number/announcement.submission_number|ac}}</div></el-col>
         </el-row>
     </div>
   </div>
@@ -32,59 +32,25 @@
         limit: 10,
         total: 10,
         btnLoading: false,
-        announcements: [
-            {
-                num:1,
-                name:'于易阳',
-                ac:186
-            },
-           {
-                num:2,
-                name:'绍钧涵',
-                ac:126
-            },
-            {
-                num:3,
-                name:'张锦麟',
-                ac:96
-            },
-            {
-                num:4,
-                name:'Lucas',
-                ac:86
-            },
-            {
-                num:5,
-                name:'金逸涵',
-                ac:76
-            },
-            {
-                num:6,
-                name:'绍钧涵',
-                ac:126
-            },
-            {
-                num:7,
-                name:'张锦麟',
-                ac:96
-            },
-            {
-                num:8,
-                name:'Lucas',
-                ac:26
-            },
-            {
-                num:9,
-                name:'金逸涵',
-                ac:6
-            },
-        ],
+        announcements: [],
         announcement: '',
         listVisible: true,
 
       }
-    }
-     
+    },
+    filters: {
+        ac(val){
+            val=val*100;
+            return val.toFixed(2)+'%';
+        }
+    },
+    beforeCreate() {
+        api.getUserRank(0, 9, {rule:'ACM'}).then(res => {
+           this.announcements=res.data.data.results
+        }).catch(() => {
+            alert('网络错误')
+        })
+    },
   }
 </script>
 
