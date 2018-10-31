@@ -14,7 +14,7 @@ export const JUDGE_STATUS = {
   '0': {
     name: '通过',
     short: 'AC',
-    color: '#2a71dd',
+    color: '#14bd68',
     type: 'success'
   },
   '1': {
