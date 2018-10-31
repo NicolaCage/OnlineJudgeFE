@@ -88,7 +88,6 @@
 
 <style lang="less" scoped>
   .home-bg{
-    padding-top: 60px;
     // background-size: 100% 100%;
     // width: 100%;
     // background: url('/static/img/Bg-0.png') no-repeat center -80px;
