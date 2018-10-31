@@ -60,7 +60,7 @@
         }
     },
     beforeCreate() {
-        api.getProblemList(0, 5, {page:1}).then(res => {
+        api.getProblemList(0, 5, {page:1,last:true}).then(res => {
            this.announcements=res.data.data.results
         }).catch(() => {
             alert('网络错误')
