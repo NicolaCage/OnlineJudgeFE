@@ -77,7 +77,6 @@
   .content-app {
     background:#ffffff;
     padding-top: 107px;
-
   }
 
   .footer {

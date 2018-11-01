@@ -1,7 +1,8 @@
 <template>
   <div id="header">
+    <div class="logo"><img src="/static/img/icon.png" alt=""></div>
     <Menu theme="light" mode="horizontal" @on-select="handleRoute" :active-name="activeMenu" class="oj-menu">
-      <div class="logo"><img src="/static/img/icon.png" alt=""></div>
+      <div class="oj-li">
       <Menu-item name="/" class="nav-title">
         {{$t('m.Home')}}
       </Menu-item>
@@ -36,7 +37,8 @@
           {{$t('m.FAQ')}}
         </Menu-item>
       </Submenu>
-      <template v-if="!isAuthenticated">
+      </div>
+      <template v-if="!isAuthenticated" class="user-login">
         <div class="btn-menu">
           <Button type="ghost"
                   ref="loginBtn"
@@ -51,7 +53,7 @@
           </Button>
         </div>
       </template>
-      <template v-else>
+      <template v-else class="user-login">
         <Dropdown class="drop-menu" @on-click="handleRoute" placement="bottom" trigger="click">
           <Button type="text" class="drop-menu-title">{{ user.username }}
             <Icon type="arrow-down-b"></Icon>
@@ -124,6 +126,7 @@
 <style lang="less" scoped>
   #header {
     min-width: 1200px;
+    padding: 0 2%;
     position: fixed;
     top: 0;
     left: 0;
@@ -132,23 +135,32 @@
     z-index: 1000;
     background-color: #fff;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    .oj-li{
+      margin: 0 auto;
+      display: inline-block;
+      text-align: center;
+    }
     .oj-menu {
       background: #fdfdfd;
-      width: 1200px;
+      width: 100%;
       margin: 0 auto;
-      
+      z-index: 1000;
+      text-align: center;
       .nav-title{
         font-family:'PingFangSC-Regular';
         font-size:14px;
+        flex: 1;
         text-align: center;
-         
       }
     }
-
+    .user-login{
+      position: absolute;
+    }
     .logo {
-      margin-right: 11.16%;
-      float: left;
+      margin-left: 4.17%;
+      position: absolute;
       width:169px;
+      z-index: 1001;
       height: 60px;
       img{
         width: 100%;
@@ -170,7 +182,7 @@
     .btn-menu {
       font-size: 16px;
       float: right;
-      margin-right: 10px;
+      margin-right: 4.17%;
     }
   }
 
