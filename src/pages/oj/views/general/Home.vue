@@ -6,8 +6,8 @@
        <img src="/static/img/bg-1.png" alt="" srcset="">
     </div>
     <div class="user">
-        <div class="user-img"></div>
-          <img :src="'http://oj.ultrabear.com.cn/admin/'+user.avatar" alt="">
+        <div class="user-img"> 
+          <img :src="'http://oj.ultrabear.com.cn'+user.avatar" alt="">
         </div>
         <p class="user-name">{{user.username}}</p>
         <div class="user-info">
