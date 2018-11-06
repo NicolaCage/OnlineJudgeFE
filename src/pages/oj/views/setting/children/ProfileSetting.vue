@@ -67,7 +67,7 @@
       <Row type="flex" :gutter="30" justify="space-around">
         <Col :span="11">
           <FormItem label="Username">
-            <Input v-model="formProfile.username" :disabled=true />
+            <Input v-model="formProfile.username"/>
           </FormItem>
           <FormItem label="Phone">
             <Input v-model="formProfile.phone"/>
@@ -146,7 +146,9 @@
     },
     mounted () {
       let profile = this.$store.state.user.profile
-      this.formProfile['username'] = this.$store.state.user.profile.user.username
+      let str=this.$store.state.user.profile.user.username.charAt(0)+"*"+this.$store.state.user.profile.user.username.substr(2)
+      console.log(str)
+      this.formProfile['username'] = str
       this.formProfile['phone'] = this.$store.state.user.profile.user.phone
       Object.keys(this.formProfile).forEach(element => {
         if (profile[element] !== undefined) {
