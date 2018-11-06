@@ -87,7 +87,6 @@
             <Button type="primary" @click="updateProfile" :loading="loadingSaveBtn">Save All</Button>
           </Form-item>
         </Col>
-
         <Col :span="11">
           <FormItem label="Real Name">
             <Input v-model="formProfile.real_name"/>

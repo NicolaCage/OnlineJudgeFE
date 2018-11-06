@@ -96,6 +96,9 @@
             align: 'center',
             render: (h, params) => {
               return h('Tag', {
+                style:{
+                  width:'100%'
+                },
                 props: {
                   color: JUDGE_STATUS[params.row.result].color
                 }

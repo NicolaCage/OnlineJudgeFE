@@ -135,15 +135,22 @@
           {
             title: 'Level',
             render: (h, params) => {
-              let t = params.row.difficulty
-              let color = 'blue'
-              if (t === 'Low') color = 'green'
-              else if (t === 'High') color = 'yellow'
+              let t = params.row.difficulty,str
+              if(params.row.difficulty=='Low'){
+                  str='低阶'
+              }else if(params.row.difficulty=='Mid'){
+                  str='中阶'
+              }else{
+                  str='高阶'
+              }
+              let color = '#3684ec'
+              if (t === 'Low') color = '#00c7fa'
+              else if (t === 'High') color = '#7f50ff'
               return h('Tag', {
                 props: {
                   color: color
                 }
-              }, params.row.difficulty)
+              }, str)
             }
           },
           {
