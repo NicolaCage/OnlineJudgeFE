@@ -60,7 +60,19 @@
     beforeCreate() {
         api.getUserRank(0, 1, {rule:'ACM'}).then(res => {
            this.user=res.data.data.results[0]
-           this.user.username=res.data.data.results[0].user.username
+           let str,stringFlag = true;
+           for(var i = 0; i < res.data.data.results[0].user.username.length; i++){
+              if(res.data.data.results[0].user.username.charCodeAt(i) > 255){
+                  stringFlag = false;
+                  break;
+              }
+           }
+           if(!stringFlag){
+              str=res.data.data.results[0].user.username.charAt(0)+"*"+res.data.data.results[0].user.username.substr(2)
+           }else{
+              str=res.data.data.results[0].user.username
+           }
+           this.user.username=str
         }).catch(() => {
             alert('网络错误')
         })

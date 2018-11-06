@@ -55,7 +55,7 @@
       </template>
       <template v-else class="user-login">
         <Dropdown class="drop-menu" @on-click="handleRoute" placement="bottom" trigger="click">
-          <Button type="text" class="drop-menu-title">{{ user.username }}
+          <Button type="text" class="drop-menu-title">{{ user.username | capitalize}}
             <Icon type="arrow-down-b"></Icon>
           </Button>
           <Dropdown-menu slot="list">
@@ -88,6 +88,25 @@
     },
     mounted () {
       this.getProfile()
+    },
+    filters: {
+      capitalize: (value)=> {
+        if (!value) return ''
+        value = value.toString()
+        let str,stringFlag = true;
+           for(var i = 0; i < value.length; i++){
+              if(value.charCodeAt(i) > 255){
+                  stringFlag = false;
+                  break;
+              }
+           }
+           if(!stringFlag){
+              str=value.charAt(0)+"*"+value.substr(2)
+           }else{
+              str=value
+           }
+        return str
+      }
     },
     methods: {
       ...mapActions(['getProfile', 'changeModalStatus']),

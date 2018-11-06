@@ -146,9 +146,7 @@
     },
     mounted () {
       let profile = this.$store.state.user.profile
-      let str=this.$store.state.user.profile.user.username.charAt(0)+"*"+this.$store.state.user.profile.user.username.substr(2)
-      console.log(str)
-      this.formProfile['username'] = str
+      this.formProfile['username'] = this.$store.state.user.profile.user.username
       this.formProfile['phone'] = this.$store.state.user.profile.user.phone
       Object.keys(this.formProfile).forEach(element => {
         if (profile[element] !== undefined) {
