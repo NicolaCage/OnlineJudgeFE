@@ -111,7 +111,7 @@
           },
           {
             title: 'Title',
-            width: 400,
+            width: 300,
             render: (h, params) => {
               let str=params.row.title;
               return h('Button', {
@@ -133,27 +133,27 @@
               }, str)
             }
           },
-          // {
-          //   title: '',
-          //   render: (h, params) => {
-          //       let str='';
-          //       params.row.tags.forEach((value,index,array)=>{
-          //           console.log(value)
-          //           str=str+value
-          //       })
-          //       return h('Tag', {
-          //         props: {
-          //           type: 'text',
-          //           size: 'large'
-          //         },
-          //         style: {
-          //           padding: '2px 0',
-          //           textAlign:'right',
-          //           lineHeight:'18px'
-          //         }
-          //       }, str)
-          //     }
-          // },
+          {
+            title: '',
+            width:180,
+            render: (h, params) => {
+                let str='';
+                params.row.tags.forEach((value,index,array)=>{
+                    if(index==params.row.tags.length-1){
+                      str=str+value
+                    }else{
+                      str=str+value+"  ; "
+                    }
+                })
+                return h('Tag', {
+                  style: {
+                    padding: '5px 10px',
+                    textAlign:'right',
+                    lineHeight:'12px',
+                  }
+                }, str)
+              }
+          },
           {
             title: 'Level',
             render: (h, params) => {

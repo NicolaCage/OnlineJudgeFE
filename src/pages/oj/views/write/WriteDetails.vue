@@ -48,12 +48,20 @@
     methods:{
       submit(){
         console.log(this.choice)
+        for(var i=0;i<this.choice.length;i++){
+              if(this.choice[i].answer==0){
+                if(confirm('您还有第'+(i+1)+'题没做,你确定提交吗？')){
+                  break;
+                }else{
+                  return;
+                }
+              }
+            }
         let data={
           'subject':this.id,
           'answer_list':this.choice
         }
         api.answer(data).then(res => {
-            console.log(res)
             this.$router.push({name: 'result', params: {AnswerID: res.data.data.id}})
 
         })
