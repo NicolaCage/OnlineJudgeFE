@@ -11,8 +11,8 @@
         </el-row>
         <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.id" :class="{active:index%2==0}" class="content-val">
             <el-col :span="8"><div class="text">{{index+1}}</div></el-col>
-            <el-col :span="8"><div class="text" style="color:#298cf1;font-size:16px;">{{announcement.user.username}}</div></el-col>
-            <el-col :span="8"><div class="text" style="font-size:16px;">{{announcement.accepted_number/announcement.submission_number|ac}}</div></el-col>
+            <el-col :span="8"><div class="text" style="color:#298cf1;font-size:16px;" @click="goDetail(announcement.user.username)">{{announcement.user.username}}</div></el-col>
+            <el-col :span="8"><div class="text" style="font-size:16px;cursor:pointer">{{announcement.accepted_number/announcement.submission_number|ac}}</div></el-col>
         </el-row>
     </div>
   </div>
@@ -51,6 +51,14 @@
             alert('网络错误')
         })
     },
+    methods:{
+        goDetail(name){
+            this.$router.push({
+                name: 'user-home',
+                query: {username: name}
+            })
+        }
+    }
   }
 </script>
 

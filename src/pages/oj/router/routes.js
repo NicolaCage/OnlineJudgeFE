@@ -18,6 +18,7 @@ import {
 } from '../views'
 
 import * as Contest from '@oj/views/contest'
+import * as Write from '@oj/views/write'
 import * as Setting from '@oj/views/setting'
 
 export default [
@@ -74,6 +75,24 @@ export default [
     path: '/contests',
     meta: {title: 'Contest List'},
     component: Contest.ContestList
+  },
+  {
+    name: 'write-list',
+    path: '/write',
+    meta: {title: 'Write List'},
+    component: Write.WriteList
+  },
+  {
+    name: 'write-details',
+    path: '/Write/:WriteID/',
+    component: Write.WriteDetails,
+    meta: {title: 'Write Details'},
+  },
+  {
+    name: 'result',
+    path: '/result/:AnswerID/',
+    component: Write.Result,
+    meta: {title: 'result'},
   },
   {
     name: 'contest-details',

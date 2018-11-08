@@ -113,6 +113,7 @@
             title: 'Title',
             width: 400,
             render: (h, params) => {
+              let str=params.row.title;
               return h('Button', {
                 props: {
                   type: 'text',
@@ -129,9 +130,30 @@
                   textAlign: 'left',
                   width: '100%'
                 }
-              }, params.row.title)
+              }, str)
             }
           },
+          // {
+          //   title: '',
+          //   render: (h, params) => {
+          //       let str='';
+          //       params.row.tags.forEach((value,index,array)=>{
+          //           console.log(value)
+          //           str=str+value
+          //       })
+          //       return h('Tag', {
+          //         props: {
+          //           type: 'text',
+          //           size: 'large'
+          //         },
+          //         style: {
+          //           padding: '2px 0',
+          //           textAlign:'right',
+          //           lineHeight:'18px'
+          //         }
+          //       }, str)
+          //     }
+          // },
           {
             title: 'Level',
             render: (h, params) => {
@@ -182,6 +204,7 @@
     },
     mounted () {
       this.init()
+      console.log(this.$refs)
     },
     methods: {
       init (simulate = false) {

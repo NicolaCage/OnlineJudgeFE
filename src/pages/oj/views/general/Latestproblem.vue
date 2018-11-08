@@ -8,7 +8,7 @@
             <el-col :span="5"><div class="text content-val">习题编号</div></el-col>
             <el-col :span="6"><div class="text content-val">题目名称</div></el-col>
             <el-col :span="5"><div class="text content-val">级别</div></el-col>
-            <el-col :span="4"><div class="text content-val">分值</div></el-col>
+            <el-col :span="4"><div class="text content-val">提交次数</div></el-col>
             <el-col :span="4"><div class="text content-val">AC比例</div></el-col>
         </el-row>
         <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement._id" :class="{active:index%2==0}" class="content-val">

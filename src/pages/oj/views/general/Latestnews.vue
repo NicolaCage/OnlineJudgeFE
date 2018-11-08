@@ -16,7 +16,7 @@
         </el-row>
         <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.id" :class="{active:index%2==0}" class="content-val">
             <el-col :span="5"><div class="text">{{announcement.create_time|capitalize}}</div></el-col>
-            <el-col :span="4"><div class="text" style="color:#298cf1;overflow: hidden;padding: 0 10px;cursor:pointer;" @click="goProblem(announcement.problem)">{{announcement.id}}</div></el-col>
+            <el-col :span="4"><div class="text" style="overflow: hidden;padding: 0 10px;cursor:pointer;" @click="goProblem(announcement.problem)">{{announcement.id | str}}</div></el-col>
             <el-col :span="3">
                 <div class="text statu">
                     <p :style="announcement.result|statu_color">{{announcement.result|statu_name}}</p> 
@@ -73,6 +73,10 @@
     filters: {
         capitalize:  (value)=> {
             return time.utcToLocal(value)
+        },
+        str:  (value)=> {
+            let val =value.slice(0,12)
+            return val
         },
         statu_name: (val)=>{
             return JUDGE_STATUS[val].name

@@ -2,40 +2,7 @@
   <Row type="flex">
     <Col :span="24">
     <Panel id="contest-card" shadow>
-      <div slot="title">{{query.rule_type === '' ? 'All' : query.rule_type}} Contests</div>
-      <div slot="extra">
-        <ul class="filter">
-          <li>
-            <Dropdown @on-click="onRuleChange">
-              <span>{{query.rule_type === '' ? 'Rule' : query.rule_type}}
-                <Icon type="arrow-down-b"></Icon>
-              </span>
-              <Dropdown-menu slot="list">
-                <Dropdown-item name="">All</Dropdown-item>
-                <Dropdown-item name="OI">OI</Dropdown-item>
-                <Dropdown-item name="ACM">ACM</Dropdown-item>
-              </Dropdown-menu>
-            </Dropdown>
-          </li>
-          <li>
-            <Dropdown @on-click="onStatusChange">
-              <span>{{query.status === '' ? 'Status' : CONTEST_STATUS_REVERSE[query.status].name}}
-                <Icon type="arrow-down-b"></Icon>
-              </span>
-              <Dropdown-menu slot="list">
-                <Dropdown-item name="">All</Dropdown-item>
-                <Dropdown-item name="0">UnderWay</Dropdown-item>
-                <Dropdown-item name="1">Not Started</Dropdown-item>
-                <Dropdown-item name="-1">Ended</Dropdown-item>
-              </Dropdown-menu>
-            </Dropdown>
-          </li>
-          <li>
-            <Input id="keyword" @on-enter="changeRoute" @on-click="changeRoute" v-model="query.keyword"
-                   icon="ios-search-strong" placeholder="Keyword"/>
-          </li>
-        </ul>
-      </div>
+      <div slot="title" class="title-text"> 奥创熊题库</div>
       <p id="no-contest" v-if="contests.length == 0">No contest</p>
       <ol id="contest-list">
         <li v-for="contest in contests" :key="contest.title">
@@ -46,34 +13,27 @@
               <a class="entry" @click.stop="goContest(contest)">
                 {{contest.title}}
               </a>
-              <template v-if="contest.contest_type != 'Public'">
-                <Icon type="ios-locked-outline" size="20"></Icon>
-              </template>
+               
             </p>
             <ul class="detail">
               <li>
-                <Icon type="calendar" color="#3091f2"></Icon>
                 {{contest.start_time | localtime('YYYY-M-D HH:mm') }}
               </li>
               <li>
-                <Icon type="android-time" color="#3091f2"></Icon>
-                {{getDuration(contest.start_time, contest.end_time)}}
-              </li>
-              <li>
-                <Button size="small" shape="circle" @click="onRuleChange(contest.rule_type)">
-                  {{contest.rule_type}}
+                <Button size="small" shape="circle" @click="goContest(contest)">
+                  去答题
                 </Button>
               </li>
             </ul>
             </Col>
             <Col :span="4" style="text-align: center">
-            <Tag type="dot" :color="CONTEST_STATUS_REVERSE[contest.status].color">{{CONTEST_STATUS_REVERSE[contest.status].name}}</Tag>
+
             </Col>
           </Row>
         </li>
       </ol>
     </Panel>
-    <Pagination :total="total" :pageSize="limit" @on-change="getContestList" :current.sync="page"></Pagination>
+    <Pagination :total="total" :pageSize="limit" @on-change="getWriteList" :current.sync="page"></Pagination>
     </Col>
   </Row>
 
@@ -90,7 +50,7 @@
   const limit = 8
 
   export default {
-    name: 'contest-list',
+    name: 'write-list',
     components: {
       Pagination
     },
@@ -112,7 +72,7 @@
       }
     },
     beforeRouteEnter (to, from, next) {
-      api.getContestList(0, limit).then((res) => {
+      api.getWriteList(0, limit).then((res) => {
         next((vm) => {
           vm.contests = res.data.data.results
           vm.total = res.data.data.total
@@ -128,11 +88,11 @@
         this.query.rule_type = route.rule_type || ''
         this.query.keyword = route.keyword || ''
         this.page = parseInt(route.page) || 1
-        this.getContestList()
+        this.getWriteList()
       },
-      getContestList (page = 1) {
+      getWriteList (page = 1) {
         let offset = (page - 1) * this.limit
-        api.getContestList(offset, this.limit, this.query).then((res) => {
+        api.getWriteList(offset, this.limit, this.query).then((res) => {
           this.contests = res.data.data.results
           this.total = res.data.data.total
         })
@@ -141,14 +101,9 @@
         let query = Object.assign({}, this.query)
         query.page = this.page
         this.$router.push({
-          name: 'contest-list',
+          name: 'write-list',
           query: utils.filterEmptyValue(query)
         })
-      },
-      onRuleChange (rule) {
-        this.query.rule_type = rule
-        this.page = 1
-        this.changeRoute()
       },
       onStatusChange (status) {
         this.query.status = status
@@ -161,7 +116,7 @@
           this.$error('请先登录')
           this.$store.dispatch('changeModalStatus', {visible: true})
         } else {
-          this.$router.push({name: 'contest-details', params: {contestID: contest.id}})
+          this.$router.push({name: 'write-details', params: {WriteID: contest.id}})
         }
       },
 
@@ -183,6 +138,10 @@
   }
 </script>
 <style lang="less" scoped>
+  .title-text{
+    text-align: center;
+    font-size: 32px;
+  }
   #contest-card {
     #keyword {
       width: 80%;
@@ -194,6 +153,8 @@
       padding: 20px;
     }
     #contest-list {
+      margin-top: 50px;
+      border-top: 1px solid rgba(187, 187, 187, 0.5);
       > li {
         padding: 20px;
         border-bottom: 1px solid rgba(187, 187, 187, 0.5);

@@ -9,6 +9,9 @@
       <Menu-item name="/problems" class="nav-title">
         {{$t('m.NavProblems')}}
       </Menu-item>
+      <Menu-item name="/write" class="nav-title">
+        笔试题库
+      </Menu-item>
       <Menu-item name="/contests" class="nav-title">
         {{$t('m.Contests')}}
       </Menu-item>

@@ -93,6 +93,16 @@ export default {
       data
     })
   },
+  answer (data) {
+    return ajax(bestUrl+'record', 'post', {
+      data
+    })
+  },
+  getanswer (params) {
+    return ajax(bestUrl+'record', 'get', {
+      params: params
+    })
+  },
   changePassword (data) {
     return ajax(bestUrl+'change_password', 'post', {
       data
@@ -150,8 +160,31 @@ export default {
       params
     })
   },
+  getWriteList (offset, limit, searchParams) {
+    let params = {
+      offset,
+      limit
+    }
+    if (searchParams !== undefined) {
+      Object.keys(searchParams).forEach((element) => {
+        if (searchParams[element]) {
+          params[element] = searchParams[element]
+        }
+      })
+    }
+    return ajax(bestUrl+'subject', 'get', {
+      params
+    })
+  },
   getContest (id) {
     return ajax(bestUrl+'contest', 'get', {
+      params: {
+        id
+      }
+    })
+  },
+  getWrite (id) {
+    return ajax(bestUrl+'subject', 'get', {
       params: {
         id
       }
