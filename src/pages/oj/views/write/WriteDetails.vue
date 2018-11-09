@@ -63,7 +63,6 @@
         }
         api.answer(data).then(res => {
             this.$router.push({name: 'result', params: {AnswerID: res.data.data.id}})
-
         })
       }
     },
