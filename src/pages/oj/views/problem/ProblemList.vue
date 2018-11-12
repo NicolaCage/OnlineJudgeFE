@@ -49,9 +49,9 @@
               <el-col :span="4"><div class="text content-val">AC比例</div></el-col>
           </el-row>
           <el-row :gutter="0" v-for="(announcement,index) in problemList" :key="announcement._id" :class="{active:index%2==0}" class="content-val">
-              <el-col :span="2"><div class="text">{{announcement._id}}</div></el-col>
+              <el-col :span="3"><div class="text">{{announcement._id}}</div></el-col>
               <el-col :span="6"><div class="text" style="color:#298cf1;cursor:pointer;text-align:left;" @click="goProblem(announcement._id)">{{announcement.title}}</div></el-col>
-              <el-col :span="6"><div class="text"><p v-for="(tag,i) in announcement.tags" :key="i" class="tag" @click="filterByTag(tag)">{{tag}}</p></div></el-col>
+              <el-col :span="5"><div class="text"><p v-for="(tag,i) in announcement.tags" :key="i" class="tag" @click="filterByTag(tag)">{{tag}}</p></div></el-col>
               <el-col :span="3">
                   <div class="text statu">
                       <p v-if="announcement.difficulty=='Low'">低阶</p> 
