@@ -161,6 +161,9 @@
           this.loadings.table = false
         })
       },
+      goProblem(id){
+            this.$router.push({name: 'problem-details', params: {problemID: id}})
+      },
       getTagList () {
         api.getProblemTagList().then(res => {
           this.tagList = res.data.data

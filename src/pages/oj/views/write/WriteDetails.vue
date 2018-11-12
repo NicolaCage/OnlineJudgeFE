@@ -23,8 +23,6 @@
   import { mapGetters } from 'vuex'
   import api from '@oj/api'
 
-   
-
   export default {
     data () {
         return {
