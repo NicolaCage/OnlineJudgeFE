@@ -13,9 +13,10 @@ import Home from './Home.vue'
 import ProblemImportOrExport from './problem/ImportAndExport.vue'
 import AddTestProblem from './problem/AddTestProblem.vue'
 import CreateTest from './problem/CreateTest.vue'
+import CreateProblem from './problem/CreateProblem.vue'
 
 export {
   Announcement, User, Conf, JudgeServer, Problem, ProblemList, Contest,
   ContestList, Login, Home, PruneTestCase, Dashboard, ProblemImportOrExport,
-  AddTestProblem,CreateTest
+  AddTestProblem,CreateTest,CreateProblem
 }

@@ -158,6 +158,29 @@ export default {
       data
     })
   },
+  createNum (data) {
+    return ajax('admin/question', 'post', {
+      data
+    })
+  },
+  subjectEdit (data) {
+    return ajax('admin/subject_edit', 'post', {
+      data
+    })
+  },
+  getNum(){
+    return ajax('/question', 'get'
+    )
+  },
+  createTest (data) {
+    return ajax('admin/subject', 'post', {
+      data
+    })
+  },
+  getTest () {
+    return ajax('/subject', 'get'
+    )
+  },
   getContest (id) {
     return ajax('admin/contest', 'get', {
       params: {

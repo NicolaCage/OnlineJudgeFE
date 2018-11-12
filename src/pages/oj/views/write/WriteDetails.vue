@@ -3,7 +3,7 @@
     <p class="title">{{title}}</p>
     <div class="content-choice">
       <template v-for="(item,index) in question">
-          <p :key="item.id">{{item.order_in_list}}. {{item.desc}}</p>
+          <p :key="item.id">{{index+1}}. {{item.desc}}</p>
           <RadioGroup v-model="choice[index].answer" :key="index" >
               <Radio :label="obj.order_in_list"  :key="obj.id" v-for="obj in item.choice" class="choice">
                 <span v-if="obj.order_in_list==1">A.</span>
@@ -37,7 +37,7 @@
     },
     beforeCreate () {
       api.getWrite(parseInt(this.$route.params.WriteID)).then((res) => {
-         this.question=res.data.data.question,
+         this.question=res.data.data.question_list,
          this.title=res.data.data.title,
          this.id=res.data.data.id,
          this.question.forEach((value,index,array)=>{
