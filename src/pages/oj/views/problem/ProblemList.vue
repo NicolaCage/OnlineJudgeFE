@@ -41,9 +41,9 @@
       </div>
         <div class="contnet">
           <el-row :gutter="0">
-              <el-col :span="2"><div class="text content-val">习题编号</div></el-col>
+              <el-col :span="3"><div class="text content-val">习题编号</div></el-col>
               <el-col :span="6"><div class="text content-val" style="text-align:left;">题目名称</div></el-col>
-              <el-col :span="6"><div class="text content-val">标签</div></el-col>
+              <el-col :span="5"><div class="text content-val">标签</div></el-col>
               <el-col :span="3"><div class="text content-val">级别</div></el-col>
               <el-col :span="3"><div class="text content-val">提交次数</div></el-col>
               <el-col :span="4"><div class="text content-val">AC比例</div></el-col>
@@ -304,7 +304,8 @@
             background:#ffffff;
         }
         .content-val{
-            font-size: 16px
+            font-size: 16px;
+            overflow: hidden;
         }
    }
 </style>
