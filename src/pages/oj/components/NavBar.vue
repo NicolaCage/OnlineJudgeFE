@@ -161,6 +161,9 @@
       margin: 0 auto;
       display: inline-block;
       text-align: center;
+      position: absolute;
+      right: 10%;
+      width: 60%;
     }
     .oj-menu {
       background: #fdfdfd;
@@ -168,6 +171,7 @@
       margin: 0 auto;
       z-index: 1000;
       text-align: center;
+      position: relative;
       .nav-title{
         font-family:'PingFangSC-Regular';
         font-size:14px;

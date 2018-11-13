@@ -168,8 +168,11 @@ export default {
       data
     })
   },
-  getNum(){
-    return ajax('/question', 'get'
+  getNum(params){
+    params = utils.filterEmptyValue(params)
+    return ajax('/question', 'get',{
+      params
+    }
     )
   },
   createTest (data) {
@@ -180,6 +183,25 @@ export default {
   getTest () {
     return ajax('/subject', 'get'
     )
+  },
+  getTestDetail (id) {
+    return ajax('/subject', 'get',{
+       params: {
+         id
+        }
+      })
+  },
+  editNum (data) {
+    return ajax('admin/question', 'put', {
+      data
+    })
+  },
+  getNumDetail (id) {
+    return ajax('admin/question', 'get',{
+       params: {
+         id
+        }
+      })
   },
   getContest (id) {
     return ajax('admin/contest', 'get', {
@@ -239,6 +261,11 @@ export default {
       data
     })
   },
+  editTest (data) {
+    return ajax('admin/subject_edit', 'put', {
+      data
+    })
+  },
   editProblem (data) {
     return ajax('admin/problem', 'put', {
       data
@@ -246,6 +273,20 @@ export default {
   },
   deleteProblem (id) {
     return ajax('admin/problem', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
+  deleteTest(id) {
+    return ajax('admin/subject_edit', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
+  deleteNum(id) {
+    return ajax('admin/question', 'delete', {
       params: {
         id
       }

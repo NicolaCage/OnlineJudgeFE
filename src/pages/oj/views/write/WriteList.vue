@@ -17,7 +17,12 @@
             </p>
             <ul class="detail">
               <li>
+                <Icon type="calendar" color="#3091f2"></Icon>
                 {{contest.start_time | localtime('YYYY-M-D HH:mm') }}
+              </li>
+              <li>
+                <Icon type="android-time" color="#3091f2"></Icon>
+                {{getDuration(contest.start_time, contest.end_time)}}
               </li>
               <li>
                 <Button size="small" shape="circle" @click="goContest(contest)">

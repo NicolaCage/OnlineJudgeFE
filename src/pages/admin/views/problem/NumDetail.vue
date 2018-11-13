@@ -1,15 +1,15 @@
 <template>
     <div class="test" v-loading="loading">
-        <p class="test-title">创建题目</p>
+        <p class="test-title">编辑题目</p>
         <div class="title-text desc"><span>题目描述 : &nbsp;&nbsp;</span><el-input v-model="desc" type="textarea" :rows="2" placeholder="请输入题目描述" class="title"></el-input></div> 
         <div class="title-text"><span>题目分值 : &nbsp;&nbsp;</span><el-input v-model="score" type='text' placeholder="请输入题目分值" class="title"></el-input></div> 
         <div class="title-text"><span>题目答案 : &nbsp;&nbsp;</span><el-input v-model="answer" type='text' placeholder="请输入题目答案" class="title"></el-input></div> 
         <div class="title-text">
-            <span>题目选项: </span> <div class="add"> <el-button @click="add" class=" btn add-btn" size="small">增加选项</el-button> </div>
+            <span>题目选项: </span> <div class="add">  </div>
         </div> 
         <div class="title-text" v-for="(item,index) in choice_list" :key="index"><el-input v-model="item.desc" type='text' placeholder="请输入选项描述" class="title choice"></el-input> </div> 
 
-        <el-button @click="submit" class="btn">确认创建</el-button>
+        <el-button @click="submit" class="btn">确认保存</el-button>
     </div>
 </template>
 <script>
@@ -24,8 +24,22 @@ export default {
                 desc:"",
                 order_in_list:""
             }],
+            id:'',
             loading:false
         }
+    },
+    mounted(){
+        this.loading=true
+        api.getNumDetail(this.$route.params.problemId).then(res =>{
+            this.loading=false
+            this.score=res.data.data.value
+            this.desc=res.data.data.desc
+            this.id=res.data.data.id
+            this.answer=res.data.data.answer
+            this.choice_list=res.data.data.choice_list
+        }).catch(() => {
+            this.loading=false
+        })
     },
     methods:{
         submit(){
@@ -34,22 +48,17 @@ export default {
                 this.choice_list[i].order_in_list=i+1
             })
             let data={
+                id:this.id,
                 score:this.score,
                 desc:this.desc,
                 answer:this.answer,
                 choice_list:this.choice_list
             }
-            api.createNum(data).then(res => {
+            api.editNum(data).then(res => {
                 this.loading=false
                 this.$router.push({name: 'num-list'})
             }).catch(() => {
                 this.loading=false
-            })
-        },
-        add(){
-            this.choice_list.push({
-                desc:"",
-                order_in_list:""
             })
         }
     }

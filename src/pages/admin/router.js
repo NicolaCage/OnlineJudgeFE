@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // 引入 view 组件
 import { Announcement, Conf, Contest, ContestList, Home, JudgeServer, Login,
-  Problem, ProblemList, User, PruneTestCase, Dashboard, ProblemImportOrExport,AddTestProblem,CreateTest,CreateProblem} from './views'
+  Problem, ProblemList, User, PruneTestCase, Dashboard, ProblemImportOrExport,AddTestProblem,CreateTest,CreateProblem,
+  TestList,NumList,NumDetail} from './views'
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -65,6 +66,16 @@ export default new VueRouter({
           component: CreateProblem
         },
         {
+          path: '/problem/testlist',
+          name: 'test-list',
+          component: TestList
+        },
+        {
+          path: '/problem/numlist',
+          name: 'num-list',
+          component: NumList
+        },
+        {
           path: '/problem/test-problem',
           name: 'test-problem',
           component: AddTestProblem
@@ -73,6 +84,11 @@ export default new VueRouter({
           path: '/problem/create',
           name: 'create-problem',
           component: Problem
+        },
+        {
+          path: '/problem/numedit/:numId',
+          name: 'edit-num',
+          component: NumDetail
         },
         {
           path: '/problem/edit/:problemId',
