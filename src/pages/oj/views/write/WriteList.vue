@@ -5,7 +5,7 @@
       <div slot="title" class="title-text"> 奥创熊题库</div>
       <p id="no-contest" v-if="contests.length == 0">No contest</p>
       <ol id="contest-list">
-        <li v-for="contest in contests" :key="contest.title">
+        <li v-for="contest in contests" :key="contest.title" v-if="contest.is_visitable">
           <Row type="flex" justify="space-between" align="middle">
             <img class="trophy" src="../../../../assets/Cup.png"/>
             <Col :span="18" class="contest-main">
