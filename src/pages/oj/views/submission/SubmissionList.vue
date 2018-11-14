@@ -35,7 +35,32 @@
             </li>
           </ul>
         </div>
-        <Table stripe :disabled-hover="true" :columns="columns" :data="submissions" :loading="loadingTable"></Table>
+        <div class="contnet">
+          <el-row :gutter="0">
+              <el-col :span="5"><div class="text content-val">时间</div></el-col>
+              <el-col :span="4"><div class="text content-val">代码Code</div></el-col>
+              <el-col :span="3"><div class="text content-val">状态</div></el-col>
+              <el-col :span="3"><div class="text content-val">得分</div></el-col>
+              <el-col :span="3"><div class="text content-val">题目编号</div></el-col>
+              <el-col :span="2"><div class="text content-val">内存</div></el-col>
+              <el-col :span="2"><div class="text content-val">语言</div></el-col>
+              <el-col :span="2"><div class="text content-val">编译者</div></el-col>
+          </el-row>
+          <el-row :gutter="0" v-for="(announcement,index) in announcements" :key="announcement.id" :class="{active:index%2==0}" class="content-val">
+              <el-col :span="5"><div class="text" >{{announcement.create_time|capitalize}}</div></el-col>
+              <el-col :span="4"><div class="text" style="color:#298cf1;overflow: hidden;padding: 0 10px;cursor:pointer;" @click="goCode(announcement.id)">{{announcement.id | str}}</div></el-col>
+              <el-col :span="3">
+                  <div class="text statu">
+                      <p :style="announcement.result|statu_color">{{announcement.result|statu_name}}</p> 
+                  </div>
+              </el-col>
+              <el-col :span="3"><div class="text"><span v-show="announcement.result==0||announcement.result==8"><span style="font-size: 16px ">{{announcement.statistic_info.score}}</span></span></div></el-col>
+              <el-col :span="3"><div class="text" style="color:#298cf1;cursor:pointer;" @click="goProblem(announcement.problem)">{{announcement.problem}}</div></el-col>
+              <el-col :span="2"><div class="text">{{announcement.statistic_info.memory_cost|memory_filter}}</div></el-col>
+              <el-col :span="2"><div class="text">{{announcement.language}}</div></el-col>
+              <el-col :span="2"><div class="text">{{announcement.username}}</div></el-col>
+          </el-row>
+        </div>
         <Pagination :total="total" :page-size="limit" @on-change="changeRoute" :current.sync="page"></Pagination>
       </Panel>
     </div>
@@ -62,117 +87,8 @@
           result: '',
           username: ''
         },
-        columns: [
-          {
-            title: 'When',
-            align: 'center',
-            render: (h, params) => {
-              return h('span', time.utcToLocal(params.row.create_time))
-            }
-          },
-          {
-            title: 'ID',
-            align: 'center',
-            render: (h, params) => {
-              if (params.row.show_link) {
-                return h('span', {
-                  style: {
-                    color: '#57a3f3',
-                    cursor: 'pointer'
-                  },
-                  on: {
-                    click: () => {
-                      this.$router.push('/status/' + params.row.id)
-                    }
-                  }
-                }, params.row.id.slice(0, 12))
-              } else {
-                return h('span', params.row.id.slice(0, 12))
-              }
-            }
-          },
-          {
-            title: 'Status',
-            align: 'center',
-            render: (h, params) => {
-              return h('Tag', {
-                style:{
-                  width:'100%'
-                },
-                props: {
-                  color: JUDGE_STATUS[params.row.result].color
-                }
-              }, JUDGE_STATUS[params.row.result].name)
-            }
-          },
-          {
-            title: 'Problem',
-            align: 'center',
-            render: (h, params) => {
-              return h('span',
-                {
-                  style: {
-                    color: '#57a3f3',
-                    cursor: 'pointer'
-                  },
-                  on: {
-                    click: () => {
-                      if (this.contestID) {
-                        this.$router.push(
-                          {
-                            name: 'contest-problem-details',
-                            params: {problemID: params.row.problem, contestID: this.contestID}
-                          })
-                      } else {
-                        this.$router.push({name: 'problem-details', params: {problemID: params.row.problem}})
-                      }
-                    }
-                  }
-                },
-                params.row.problem)
-            }
-          },
-          {
-            title: 'Time',
-            align: 'center',
-            render: (h, params) => {
-              return h('span', utils.submissionTimeFormat(params.row.statistic_info.time_cost))
-            }
-          },
-          {
-            title: 'Memory',
-            align: 'center',
-            render: (h, params) => {
-              return h('span', utils.submissionMemoryFormat(params.row.statistic_info.memory_cost))
-            }
-          },
-          {
-            title: 'Language',
-            align: 'center',
-            key: 'language'
-          },
-          {
-            title: 'Author',
-            align: 'center',
-            render: (h, params) => {
-              return h('a', {
-                style: {
-                  'display': 'inline-block',
-                  'max-width': '150px'
-                },
-                on: {
-                  click: () => {
-                    this.$router.push(
-                      {
-                        name: 'user-home',
-                        query: {username: params.row.username}
-                      })
-                  }
-                }
-              }, params.row.username)
-            }
-          }
-        ],
+        announcements:[],
+        columns: [],
         loadingTable: false,
         submissions: [],
         total: 30,
@@ -193,6 +109,12 @@
       delete this.JUDGE_STATUS['2']
     },
     methods: {
+      goCode(id){
+        this.$router.push('/status/' + id)
+      },
+      goProblem(id){
+            this.$router.push({name: 'problem-details', params: {'problemID': id}})
+      },
       init () {
         this.contestID = this.$route.params.contestID
         let query = this.$route.query
@@ -230,6 +152,7 @@
           this.adjustRejudgeColumn()
           this.loadingTable = false
           this.submissions = data.results
+          this.announcements=data.results
           this.total = data.total
         }).catch(() => {
           this.loadingTable = false
@@ -314,6 +237,24 @@
         return !this.contestID && this.user.admin_type === USER_TYPE.SUPER_ADMIN
       }
     },
+    filters: {
+        capitalize:  (value)=> {
+            return time.utcToLocal(value)
+        },
+        str:  (value)=> {
+            let val =value.slice(0,12)
+            return val
+        },
+        statu_name: (val)=>{
+            return JUDGE_STATUS[val].name
+        },
+        statu_color:(colors)=>{
+            return  'background:'+ JUDGE_STATUS[colors].color
+        },
+        memory_filter: (memory)=>{
+            return utils.submissionMemoryFormat(memory)
+        },
+    },
     watch: {
       '$route' (newVal, oldVal) {
         if (newVal !== oldVal) {
@@ -334,7 +275,7 @@
   .ivu-btn-text {
     color: #57a3f3;
   }
-
+  
   .flex-container {
     #main {
       flex: auto;
@@ -348,4 +289,40 @@
       width: 210px;
     }
   }
+.contnet{
+        background:#f8f8fa;
+        box-shadow:0 2px 4px 0 rgba(0,0,0,0.20);
+        border-radius:8px;
+        width:100%;
+        margin-top: 20px;
+   .text{
+            font-family:'PingFangSC-Medium';
+            color:#4a4a4a;
+            text-align:center;
+            height:48px;
+            line-height: 48px;
+            font-size: 12px;
+            p{
+                font-size:12px;
+                color:#ffffff;
+                text-align:center;
+                background:#14bd68;
+                border-radius:4px;
+                width:78px;
+                height:22px;
+                line-height: 22px;
+                margin: 0 auto;
+            }
+        }
+        .statu{
+            padding-top: 13px;
+        }
+        .active{
+            background:#ffffff;
+        }
+        .content-val{
+            font-size: 16px
+        }
+  }
+  
 </style>
