@@ -1,6 +1,7 @@
 <template>
   <div>
     <p class="title">{{title}}</p>
+    <div class="content-tags"><Tag type="dot" :color="status.color" class="tags">{{status.name}}</Tag></div> 
     <div class="content-choice">
       <template v-for="(item,index) in question">
           <p :key="item.id">{{index+1}}. {{item.desc}}</p>
@@ -15,14 +16,14 @@
           </RadioGroup>
       </template><br/>
     </div>
-    <Button @click="submit" class="btn">提交试题</Button>
+    <Button @click="submit" class="btn" :disabled="!isstatus" :class="{active:isstatus}">提交试题</Button>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import api from '@oj/api'
-
+  import { CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
   export default {
     data () {
         return {
@@ -30,14 +31,18 @@
             choice:[],
             title:'',
             animal: '',
-            id:''
+            id:'',
+            status:{},
+            isstatus:false
         }
     },
-    beforeCreate () {
+    mounted () {
       api.getWrite(parseInt(this.$route.params.WriteID)).then((res) => {
          this.question=res.data.data.question_list,
          this.title=res.data.data.title,
          this.id=res.data.data.id,
+         this.status=CONTEST_STATUS_REVERSE[res.data.data.status],
+         this.isstatus=(res.data.data.status==0),
          this.question.forEach((value,index,array)=>{
             this.choice.push({'question':value.id,'answer':0})
          })
@@ -98,8 +103,22 @@
   height: 35px;
   line-height: 22px;
   margin: 50px auto 0;
-  background: #f99156;
-  color: #ffffff;
   border: 0;
+  background: #dcdfe6;
+  color: #ffffff;
+}
+.active{
+  background: #f99156 !important;
+  color: #ffffff !important;
+}
+.content-tags{
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  margin-top: 20px;
+  .tags{
+    margin-right: 0;
+    float: right;
+  }
 }
 </style>

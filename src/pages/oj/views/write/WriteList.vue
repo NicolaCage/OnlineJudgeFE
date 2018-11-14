@@ -32,7 +32,7 @@
             </ul>
             </Col>
             <Col :span="4" style="text-align: center">
-
+                <Tag type="dot" :color="CONTEST_STATUS_REVERSE[contest.status].color">{{CONTEST_STATUS_REVERSE[contest.status].name}}</Tag>
             </Col>
           </Row>
         </li>
