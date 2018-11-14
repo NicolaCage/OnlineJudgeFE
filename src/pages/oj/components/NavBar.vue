@@ -162,8 +162,9 @@
       display: inline-block;
       text-align: center;
       position: absolute;
-      right: 10%;
-      width: 60%;
+      right: 18%;
+      width: 55%;
+      z-index: 9;
     }
     .oj-menu {
       background: #fdfdfd;
@@ -208,6 +209,7 @@
     .btn-menu {
       font-size: 16px;
       float: right;
+      z-index: 999;
       margin-right: 4.17%;
     }
   }
