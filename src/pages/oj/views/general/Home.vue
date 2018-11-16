@@ -2,7 +2,7 @@
   <Row type="flex" justify="space-around" class="home-bg">
     <Col :span="22">
     <div>
-    <div shadow   class="contest banner">
+    <div shadow   class="contest banner" @click="goContests">
        <img src="/static/img/bg-1.png" alt="" srcset="">
     </div>
     <div class="user">
@@ -93,6 +93,9 @@
           name: 'contest-details',
           params: {contestID: this.contests[this.index].id}
         })
+      },
+      goContests(){
+        this.$router.push({name: 'contest-list'})
       }
     }
   }
@@ -112,6 +115,7 @@
     overflow: hidden;
     height:360px;
     display: inline-block;
+    cursor:pointer;
     img{
       width: 100%;
       height: 100%;
