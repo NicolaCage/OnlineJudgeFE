@@ -54,7 +54,7 @@
                       <p :style="announcement.result|statu_color">{{announcement.result|statu_name}}</p> 
                   </div>
               </el-col>
-              <el-col :span="3"><div class="text"><span v-show="announcement.result==0||announcement.result==8"><span style="font-size: 16px ">{{announcement.statistic_info.score}}</span></span></div></el-col>
+              <el-col :span="3"><div class="text"><span><span style="font-size: 16px ">{{announcement.statistic_info.score}}</span></span></div></el-col>
               <el-col :span="3"><div class="text" style="color:#298cf1;cursor:pointer;" @click="goProblem(announcement.problem)">{{announcement.problem}}</div></el-col>
               <el-col :span="2"><div class="text">{{announcement.statistic_info.memory_cost|memory_filter}}</div></el-col>
               <el-col :span="2"><div class="text">{{announcement.language}}</div></el-col>
