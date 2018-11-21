@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="title">{{title}}</p>
-    <div class="content-tags"><Tag type="dot" :color="status.color" class="tags">{{status.name}}</Tag></div> 
+    <div class="content-tags"><Tag type="dot" :color="status.color" class="tags">{{status.name}}</Tag></div>
     <div class="content-choice">
       <template v-for="(item,index) in question">
           <p :key="item.id">{{index+1}}. {{item.desc}}</p>
@@ -12,7 +12,7 @@
                 <span v-if="obj.order_in_list==3">C.</span>
                 <span v-if="obj.order_in_list==4">D.</span>
                 {{obj.desc}}
-              </Radio> 
+              </Radio>
           </RadioGroup>
       </template><br/>
     </div>
@@ -71,10 +71,10 @@
     },
     name: 'write-details',
     components: {
-     
+
     },
     computed: {
-      
+
     }
   }
 </script>

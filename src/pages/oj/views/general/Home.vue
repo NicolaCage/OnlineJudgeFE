@@ -6,8 +6,8 @@
        <img src="/static/img/bg-1.png" alt="" srcset="">
     </div>
     <div class="user">
-        <div class="user-img"> 
-          <img :src="'http://oj.ultrabear.com.cn'+user.avatar" alt="">
+        <div class="user-img">
+          <img :src="user.avatar" alt="">
         </div>
         <p class="user-name">{{user.username}}</p>
         <div class="user-info">
@@ -78,7 +78,7 @@
         })
     },
     mounted () {
-      
+
       let params = {status: CONTEST_STATUS.NOT_START}
       api.getContestList(0, 8).then(res => {
         this.contests = res.data.data.results
@@ -136,7 +136,7 @@
     color:#4a4a4a;
     padding-top: 50px;
     .user-img{
-      
+
       width:120px;
       height:120px;
       display: block;
@@ -190,7 +190,7 @@
     bottom: 5px;
   }
   .announcement {
-  
+
     border: 0;
     outline: none;
     margin-top: 58px;
