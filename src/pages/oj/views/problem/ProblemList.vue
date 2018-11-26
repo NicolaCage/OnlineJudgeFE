@@ -1,8 +1,28 @@
 <template>
   <Row type="flex" :gutter="18">
+
+    <Col :span="5">
+    <p class="tag-title">选择筛选标签</p>
+    <Cascader :data="data" v-model="value1" class="cascader" size="large" @on-change="selecTags" placeholder="请选择筛选标签"></Cascader>
+    <Panel :padding="10">
+      <div slot="title" class="taglist-title">标签</div>
+      <el-tag  v-for="(tag,i) in tagList"
+              :key="tag.label"
+              @close="Delete(i)"
+              class="tag-btn"
+              closable>{{tag.label}}
+      </el-tag>
+
+      <Button long id="pick-one" @click="pickone">
+        <Icon type="shuffle"></Icon>
+        Pick one
+      </Button>
+    </Panel>
+    <Spin v-if="loadings.tag" fix size="large"></Spin>
+    </Col>
     <Col :span=19>
     <Panel shadow>
-      <div slot="title">Problem List</div>
+      <div slot="title">问题列表</div>
       <div slot="extra">
         <ul class="filter">
           <li>
@@ -11,19 +31,19 @@
                 <Icon type="arrow-down-b"></Icon>
               </span>
               <Dropdown-menu slot="list">
-                <Dropdown-item name="">All</Dropdown-item>
-                <Dropdown-item name="Low">Low</Dropdown-item>
-                <Dropdown-item name="Mid">Mid</Dropdown-item>
-                <Dropdown-item name="High">High</Dropdown-item>
+                <Dropdown-item name="">所有</Dropdown-item>
+                <Dropdown-item name="Low">低阶</Dropdown-item>
+                <Dropdown-item name="Mid">中阶</Dropdown-item>
+                <Dropdown-item name="High">高阶</Dropdown-item>
               </Dropdown-menu>
             </Dropdown>
           </li>
-          <li>
+          <!-- <li>
             <i-switch size="large" @on-change="handleTagsVisible">
-              <span slot="open">Tags</span>
-              <span slot="close">Tags</span>
+              <span slot="open">开</span>
+              <span slot="close">关</span>
             </i-switch>
-          </li>
+          </li> -->
           <li>
             <Input v-model="query.keyword"
                    @on-enter="filterByKeyword"
@@ -34,7 +54,7 @@
           <li>
             <Button type="info" @click="onReset">
               <Icon type="refresh"></Icon>
-              Reset
+              刷新
             </Button>
           </li>
         </ul>
@@ -43,7 +63,7 @@
           <el-row :gutter="0">
               <el-col :span="3"><div class="text content-val">习题编号</div></el-col>
               <el-col :span="6"><div class="text content-val" style="text-align:left;">题目名称</div></el-col>
-              <el-col :span="5"><div class="text content-val">标签</div></el-col>
+              <el-col :span="5" ><div class="text content-val">标签</div></el-col>
               <el-col :span="3"><div class="text content-val">级别</div></el-col>
               <el-col :span="3"><div class="text content-val">提交次数</div></el-col>
               <el-col :span="4"><div class="text content-val">AC比例</div></el-col>
@@ -67,26 +87,6 @@
     <Pagination :total="total" :page-size="limit" @on-change="pushRouter" :current.sync="query.page"></Pagination>
 
     </Col>
-
-    <Col :span="5">
-    <Panel :padding="10">
-      <div slot="title" class="taglist-title">Tags</div>
-      <Button v-for="tag in tagList"
-              :key="tag.name"
-              @click="filterByTag(tag.name)"
-              type="ghost"
-              :disabled="query.tag === tag.name"
-              shape="circle"
-              class="tag-btn">{{tag.name}}
-      </Button>
-
-      <Button long id="pick-one" @click="pickone">
-        <Icon type="shuffle"></Icon>
-        Pick one
-      </Button>
-    </Panel>
-    <Spin v-if="loadings.tag" fix size="large"></Spin>
-    </Col>
   </Row>
 </template>
 
@@ -105,6 +105,7 @@
     },
     data () {
       return {
+        value1:[],
         tagList: [],
         problemList: [],
         limit: 20,
@@ -113,6 +114,53 @@
           table: true,
           tag: true
         },
+        data:[{
+                    value: 'beijing',
+                    label: '北京',
+                    children: [
+                        {
+                            value: 'gugong',
+                            label: '故宫'
+                        },
+                        {
+                            value: 'tiantan',
+                            label: '天坛'
+                        },
+                        {
+                            value: 'wangfujing',
+                            label: '王府井'
+                        }
+                    ]
+                }, {
+                    value: 'jiangsu',
+                    label: '江苏',
+                    children: [
+                        {
+                            value: 'nanjing',
+                            label: '南京',
+                            children: [
+                                {
+                                    value: 'fuzimiao',
+                                    label: '夫子庙',
+                                }
+                            ]
+                        },
+                        {
+                            value: 'suzhou',
+                            label: '苏州',
+                            children: [
+                                {
+                                    value: 'zhuozhengyuan',
+                                    label: '拙政园',
+                                },
+                                {
+                                    value: 'shizilin',
+                                    label: '狮子林',
+                                }
+                            ]
+                        }
+                    ],
+                }],
         routeName: '',
         query: {
           keyword: '',
@@ -127,18 +175,17 @@
     },
     methods: {
       init (simulate = false) {
+        console.log(11)
         this.routeName = this.$route.name
         let query = this.$route.query
         this.query.difficulty = query.difficulty || ''
         this.query.keyword = query.keyword || ''
-        this.query.tag = query.tag || ''
+        this.query.tags = query.tags || ''
         this.query.page = parseInt(query.page) || 1
         if (this.query.page < 1) {
           this.query.page = 1
         }
-        if (!simulate) {
-          this.getTagList()
-        }
+        this.getTagList()
         this.getProblemList()
       },
       pushRouter () {
@@ -146,6 +193,15 @@
           name: 'problem-list',
           query: utils.filterEmptyValue(this.query)
         })
+      },
+      deletes(delIndex,arr){
+          var temArray=[];
+          for(var i=0;i<arr.length;i++){
+            if(i!=delIndex){
+              temArray.push(arr[i]);
+            }
+          }
+          return temArray;
       },
       getProblemList () {
         let offset = (this.query.page - 1) * this.limit
@@ -165,15 +221,36 @@
             this.$router.push({name: 'problem-details', params: {problemID: id}})
       },
       getTagList () {
-        api.getProblemTagList().then(res => {
-          this.tagList = res.data.data
+        api.getTags().then(res=>{
+          this.data=res.data.data
           this.loadings.tag = false
-        }, res => {
-          this.loadings.tag = false
-        })
+          let arr=this.query.tags.split(",")
+          if(arr&&this.tagList.length==0){
+            arr.forEach((v,i)=>{
+                this.data.forEach((obj,j)=>{
+                  if(obj.value==v){
+                    this.tagList.push(obj)
+                  }
+              })
+            })
+          }
+        }) 
       },
-      filterByTag (tagName) {
-        this.query.tag = tagName
+      Delete(index){
+        this.tagList=this.deletes(index,this.tagList)
+        this.filterByTag()
+      },
+      filterByTag () {
+        let arr=''
+        this.tagList.forEach((v,i)=>{
+           if(i==this.tagList.length-1){
+              arr=arr+(v.value)
+           }else{
+              arr=arr+(v.value)+','
+           }
+        })
+        this.query.tags = []
+        this.query.tags = arr
         this.query.page = 1
         this.pushRouter()
       },
@@ -216,6 +293,21 @@
           this.$success('Good Luck')
           this.$router.push({name: 'problem-details', params: {problemID: res.data.data}})
         })
+      },
+      selecTags(value,selectedData){
+        let data = selectedData.pop(),isVal=true;
+        this.value1=[]
+        console.log(data)
+        this.tagList.forEach((v,i)=>{
+            if(data.value==v.value){
+              isVal=false
+            }
+        })
+        console.log(isVal)
+        if(isVal){
+          this.tagList.push(data)
+          this.filterByTag()
+        } 
       }
     },
     filters: {
@@ -307,5 +399,16 @@
             font-size: 16px;
             overflow: hidden;
         }
+   }
+   .tag-title{
+     margin-top: 30px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 30px;
+      padding:  0 ;
+   }
+   .cascader{
+     margin-top: 30px;
+     margin-bottom: 25px;
    }
 </style>

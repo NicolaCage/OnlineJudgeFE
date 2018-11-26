@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <div class="logo"><img src="/static/img/icon.png" alt=""></div>
+    <div class="logo"><img src="/static/img/WX20181126-180310@2x.png" alt=""></div>
     <Menu theme="light" mode="horizontal" @on-select="handleRoute" :active-name="activeMenu" class="oj-menu">
       <div class="oj-li">
       <Menu-item name="/" class="nav-title">
@@ -193,7 +193,7 @@
         width: 100%;
         height: 43px;
         display: inline-block;
-        margin-top: 8px;
+        margin-top: 12px;
       }
     }
 

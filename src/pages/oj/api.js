@@ -42,6 +42,9 @@ export default {
   getCaptcha () {
     return ajax(bestUrl+'captcha', 'get')
   },
+  getTags () {
+    return ajax(bestUrl+'parent/tags', 'get')
+  },
   getUserInfo (username = undefined) {
     return ajax(bestUrl+'profile', 'get', {
       params: {

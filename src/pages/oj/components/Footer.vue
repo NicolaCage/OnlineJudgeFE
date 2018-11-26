@@ -2,7 +2,7 @@
     <div class="footer-content">
        <div class="text">
             公司地址：杭州市西湖区桂花园云桂花园9幢103 <br>
-            公司邮箱：info@ultrabear.cn
+            公司官网：<a href="https://www.ultrabear.com.cn/">ultrabear.com.cn</a>
        </div>
        <p>Copyright 2018 杭州艺程科技有限公司 版权所有 ©️2018 浙ICP备17056847</p>
     </div>

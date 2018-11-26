@@ -7,7 +7,7 @@
           <p :key="item.id">{{index+1}}. {{item.desc}}</p>
           <RadioGroup v-model="choice[index].answer" :key="index" >
               <Radio :label="obj.order_in_list"  :key="obj.id" v-for="obj in item.choice" class="choice">
-                <span v-if="obj.order_in_list==1">A.</span>
+                <span v-if="obj.order_in_list==1"> A.</span>
                 <span v-if="obj.order_in_list==2">B.</span>
                 <span v-if="obj.order_in_list==3">C.</span>
                 <span v-if="obj.order_in_list==4">D.</span>
@@ -28,7 +28,7 @@
     data () {
         return {
             question: [0],
-            choice:[],
+            choice:[{'question':1,'answer':0}],
             title:'',
             animal: '',
             id:'',
@@ -36,7 +36,8 @@
             isstatus:false
         }
     },
-    mounted () {
+    beforeCreate () {
+      this.choice=[],
       api.getWrite(parseInt(this.$route.params.WriteID)).then((res) => {
          this.question=res.data.data.question_list,
          this.title=res.data.data.title,
