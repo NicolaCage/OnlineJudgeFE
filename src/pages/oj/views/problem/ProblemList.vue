@@ -114,53 +114,7 @@
           table: true,
           tag: true
         },
-        data:[{
-                    value: 'beijing',
-                    label: '北京',
-                    children: [
-                        {
-                            value: 'gugong',
-                            label: '故宫'
-                        },
-                        {
-                            value: 'tiantan',
-                            label: '天坛'
-                        },
-                        {
-                            value: 'wangfujing',
-                            label: '王府井'
-                        }
-                    ]
-                }, {
-                    value: 'jiangsu',
-                    label: '江苏',
-                    children: [
-                        {
-                            value: 'nanjing',
-                            label: '南京',
-                            children: [
-                                {
-                                    value: 'fuzimiao',
-                                    label: '夫子庙',
-                                }
-                            ]
-                        },
-                        {
-                            value: 'suzhou',
-                            label: '苏州',
-                            children: [
-                                {
-                                    value: 'zhuozhengyuan',
-                                    label: '拙政园',
-                                },
-                                {
-                                    value: 'shizilin',
-                                    label: '狮子林',
-                                }
-                            ]
-                        }
-                    ],
-                }],
+        data:[],
         routeName: '',
         query: {
           keyword: '',
@@ -225,14 +179,18 @@
           this.data=res.data.data
           this.loadings.tag = false
           let arr=this.query.tags.split(",")
-          if(arr&&this.tagList.length==0){
-            arr.forEach((v,i)=>{
-                this.data.forEach((obj,j)=>{
-                  if(obj.value==v){
-                    this.tagList.push(obj)
-                  }
-              })
-            })
+          if(arr){
+            //1.使用后台数据遍历判断
+            // arr.forEach((v,i)=>{
+            //     this.data.forEach((obj,j)=>{
+            //       if(obj.value==v){
+            //         this.tagList.push(obj)
+            //       }
+            //   })
+            // })
+            //2.使用缓存
+            let storage=window.localStorage;
+            this.tagList=JSON.parse(localStorage['localdata']).tagList
           }
         }) 
       },
@@ -296,16 +254,17 @@
       },
       selecTags(value,selectedData){
         let data = selectedData.pop(),isVal=true;
+        let storage=window.localStorage;
         this.value1=[]
-        console.log(data)
         this.tagList.forEach((v,i)=>{
             if(data.value==v.value){
               isVal=false
             }
         })
-        console.log(isVal)
         if(isVal){
           this.tagList.push(data)
+          let localdata={'tagList':this.tagList}
+          localStorage.setItem("localdata", JSON.stringify(localdata))
           this.filterByTag()
         } 
       }
