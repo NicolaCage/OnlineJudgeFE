@@ -196,6 +196,8 @@
       },
       Delete(index){
         this.tagList=this.deletes(index,this.tagList)
+        let localdata={'tagList':this.tagList}
+        localStorage.setItem("localdata", JSON.stringify(localdata))
         this.filterByTag()
       },
       filterByTag () {
