@@ -28,7 +28,7 @@
     data () {
         return {
             question: [0],
-            choice:[{'question':1,'answer':0}],
+            choice:[],
             title:'',
             animal: '',
             id:'',
