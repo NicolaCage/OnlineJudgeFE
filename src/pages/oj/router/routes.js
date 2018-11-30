@@ -15,7 +15,7 @@ import {
   SubmissionDetails,
   SubmissionList,
   UserHome
-} from '../views'
+} from '@oj/views/index.js'
 
 import * as Contest from '@oj/views/contest'
 import * as Write from '@oj/views/write'
@@ -26,109 +26,109 @@ export default [
     name: 'home',
     path: '/',
     meta: {title: 'Home'},
-    component: Home
+    component: () =>Home
   },
   {
     name: 'logout',
     path: '/logout',
     meta: {title: 'Logout'},
-    component: Logout
+    component:() => Logout
   },
   {
     name: 'apply-reset-password',
     path: '/apply-reset-password',
     meta: {title: 'Apply Reset Password'},
-    component: ApplyResetPassword
+    component:() => ApplyResetPassword
   },
   {
     name: 'reset-password',
     path: '/reset-password/:token',
     meta: {title: 'Reset Password'},
-    component: ResetPassword
+    component:() => ResetPassword
   },
   {
     name: 'problem-list',
     path: '/problems',
     meta: {title: 'Problem List'},
-    component: ProblemList
+    component:() => ProblemList
   },
   {
     name: 'problem-details',
     path: '/problem/:problemID',
     meta: {title: 'Problem Details'},
-    component: Problem
+    component:() => Problem
   },
   {
     name: 'submission-list',
     path: '/status',
     meta: {title: 'Submission List'},
-    component: SubmissionList
+    component:() => SubmissionList
   },
   {
     name: 'submission-details',
     path: '/status/:id/',
     meta: {title: 'Submission Details'},
-    component: SubmissionDetails
+    component:() => SubmissionDetails
   },
   {
     name: 'contest-list',
     path: '/contests',
     meta: {title: 'Contest List'},
-    component: Contest.ContestList
+    component: () =>Contest.ContestList
   },
   {
     name: 'write-list',
     path: '/write',
     meta: {title: 'Write List'},
-    component: Write.WriteList
+    component: () =>Write.WriteList
   },
   {
     name: 'write-details',
     path: '/Write/:WriteID/',
-    component: Write.WriteDetails,
+    component:() => Write.WriteDetails,
     meta: {title: 'Write Details'},
   },
   {
     name: 'result',
     path: '/result/:AnswerID/',
-    component: Write.Result,
+    component: () =>Write.Result,
     meta: {title: 'result'},
   },
   {
     name: 'contest-details',
     path: '/contest/:contestID/',
-    component: Contest.ContestDetails,
+    component:() => Contest.ContestDetails,
     meta: {title: 'Contest Details'},
     children: [
       {
         name: 'contest-submission-list',
         path: 'submissions',
-        component: SubmissionList
+        component:() => SubmissionList
       },
       {
         name: 'contest-problem-list',
         path: 'problems',
-        component: Contest.ContestProblemList
+        component:() => Contest.ContestProblemList
       },
       {
         name: 'contest-problem-details',
         path: 'problem/:problemID/',
-        component: Problem
+        component:() => Problem
       },
       {
         name: 'contest-announcement-list',
         path: 'announcements',
-        component: Announcements
+        component:() => Announcements
       },
       {
         name: 'contest-rank',
         path: 'rank',
-        component: Contest.ContestRank
+        component:() => Contest.ContestRank
       },
       {
         name: 'acm-helper',
         path: 'helper',
-        component: Contest.ACMContestHelper
+        component:() => Contest.ACMContestHelper
       }
     ]
   },
@@ -136,47 +136,47 @@ export default [
     name: 'acm-rank',
     path: '/acm-rank',
     meta: {title: 'ACM Rankings'},
-    component: ACMRank
+    component:() => ACMRank
   },
   {
     name: 'oi-rank',
     path: '/oi-rank',
     meta: {title: 'OI Rankings'},
-    component: OIRank
+    component:() => OIRank
   },
   {
     name: 'user-home',
     path: '/user-home',
-    component: UserHome,
+    component:() => UserHome,
     meta: {requiresAuth: true, title: 'User Home'}
   },
   {
     path: '/setting',
-    component: Setting.Settings,
+    component:() => Setting.Settings,
     children: [
       {
         name: 'default-setting',
         path: '',
         meta: {requiresAuth: true, title: 'Default Settings'},
-        component: Setting.ProfileSetting
+        component:() => Setting.ProfileSetting
       },
       {
         name: 'profile-setting',
         path: 'profile',
         meta: {requiresAuth: true, title: 'Profile Settings'},
-        component: Setting.ProfileSetting
+        component:() => Setting.ProfileSetting
       },
       {
         name: 'account-setting',
         path: 'account',
         meta: {requiresAuth: true, title: 'Account Settings'},
-        component: Setting.AccountSetting
+        component: () =>Setting.AccountSetting
       },
       {
         name: 'security-setting',
         path: 'security',
         meta: {requiresAuth: true, title: 'Security Settings'},
-        component: Setting.SecuritySetting
+        component: () =>Setting.SecuritySetting
       }
     ]
   },
@@ -184,17 +184,17 @@ export default [
     path: '/about',
     name: 'about',
     meta: {title: 'About'},
-    component: About
+    component:() => About
   },
   {
     path: '/faq',
     name: 'faq',
     meta: {title: 'FAQ'},
-    component: FAQ
+    component:() => FAQ
   },
   {
     path: '*',
     meta: {title: '404'},
-    component: NotFound
+    component:() => NotFound
   }
 ]

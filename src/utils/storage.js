@@ -1,4 +1,4 @@
-const localStorage = window.localStorage
+const localStorage = localStorage
 
 export default {
   name: 'storage',

@@ -239,7 +239,7 @@
 <script>
   import Simditor from '../../components/Simditor'
   import Accordion from '../../components/Accordion'
-  import CodeMirror from '../../components/CodeMirror'
+  // import CodeMirror from '../../components/CodeMirror'
   import api from '../../api'
 
   export default {
@@ -247,7 +247,7 @@
     components: {
       Simditor,
       Accordion,
-      CodeMirror
+      // CodeMirror
     },
     data () {
       return {

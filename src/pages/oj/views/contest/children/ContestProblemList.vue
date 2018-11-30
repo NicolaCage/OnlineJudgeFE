@@ -1,7 +1,7 @@
 <template>
   <div>
     <Panel>
-      <div slot="title">{{$t('m.Problems_List')}}</div>
+      <div slot="title">fdsafdsafds</div>
       <Table v-if="contestRuleType == 'ACM' || OIContestRealTimePermission"
              :columns="ACMTableColumns"
              :data="problems"
@@ -19,7 +19,7 @@
 <script>
   import {mapState, mapGetters} from 'vuex'
   import {ProblemMixin} from '@oj/components/mixins'
-
+  
   export default {
     name: 'ContestProblemList',
     mixins: [ProblemMixin],

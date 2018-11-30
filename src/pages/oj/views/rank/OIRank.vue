@@ -8,24 +8,24 @@
       </div>
     </Panel>
     <Table :data="dataRank" :columns="columns" size="large"></Table>
-    <Pagination :total="total" :page-size.sync="limit" :current.sync="page"
+    <!-- <Pagination :total="total" :page-size.sync="limit" :current.sync="page"
                 @on-change="getRankData"
-                show-sizer @on-page-size-change="getRankData(1)"></Pagination>
+                show-sizer @on-page-size-change="getRankData(1)"></Pagination> -->
     </Col>
   </Row>
 </template>
 
 <script>
   import api from '@oj/api'
-  import Pagination from '@oj/components/Pagination'
+  // import Pagination from '@oj/components/Pagination'
   import utils from '@/utils/utils'
   import { RULE_TYPE } from '@/utils/constants'
 
   export default {
     name: 'acm-rank',
-    components: {
-      Pagination
-    },
+    // components: {
+    //   Pagination
+    // },
     data () {
       return {
         page: 1,

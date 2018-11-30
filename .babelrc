@@ -20,7 +20,14 @@
         "stage-2"
       ],
       "plugins": [
-        "istanbul"
+        "istanbul",
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          }
+        ]
       ]
     }
   }

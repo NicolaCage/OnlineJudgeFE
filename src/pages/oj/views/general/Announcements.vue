@@ -1,5 +1,5 @@
 <template>
-  <Panel shadow :padding="10">
+  <!-- <Panel shadow :padding="10">
     <div slot="title">
       {{title}}
     </div>
@@ -35,84 +35,85 @@
         <div v-katex v-html="announcement.content" key="content" class="content-container markdown-body"></div>
       </template>
     </transition-group>
-  </Panel>
+  </Panel> -->
+  <div>fdsafdadfsfds</div>
 </template>
 
 <script>
-  import api from '@oj/api'
-  import Pagination from '@oj/components/Pagination'
+  // import api from '@oj/api'
+  // import Pagination from '@oj/components/Pagination'
 
-  export default {
-    name: 'Announcement',
-    components: {
-      Pagination
-    },
-    data () {
-      return {
-        limit: 10,
-        total: 10,
-        btnLoading: false,
-        announcements: [],
-        announcement: '',
-        listVisible: true
-      }
-    },
-    mounted () {
-      this.init()
-    },
-    methods: {
-      init () {
-        if (this.isContest) {
-          this.getContestAnnouncementList()
-        } else {
-          this.getAnnouncementList()
-        }
-      },
-      getAnnouncementList (page = 1) {
-        let params = {
-          limit: this.limit,
-          offset: (page - 1) * this.limit
-        }
-        this.btnLoading = true
-        api.getAnnouncementList(params).then(res => {
-          this.btnLoading = false
-          this.announcements = res.data.data.results
-          this.total = res.data.data.total
-        }, () => {
-          this.btnLoading = false
-        })
-      },
-      getContestAnnouncementList () {
-        this.btnLoading = true
-        api.getContestAnnouncementList(this.$route.params.contestID).then(res => {
-          this.btnLoading = false
-          this.announcements = res.data.data
-        }, () => {
-          this.btnLoading = false
-        })
-      },
-      goAnnouncement (announcement) {
-        this.announcement = announcement
-        this.listVisible = false
-      },
-      goBack () {
-        this.listVisible = true
-        this.announcement = ''
-      }
-    },
-    computed: {
-      title () {
-        if (this.listVisible) {
-          return this.isContest ? 'Contest Announcements' : 'Announcements'
-        } else {
-          return this.announcement.title
-        }
-      },
-      isContest () {
-        return !!this.$route.params.contestID
-      }
-    }
-  }
+  // export default {
+  //   name: 'Announcement',
+  //   components: {
+  //     Pagination
+  //   },
+  //   data () {
+  //     return {
+  //       limit: 10,
+  //       total: 10,
+  //       btnLoading: false,
+  //       announcements: [],
+  //       announcement: '',
+  //       listVisible: true
+  //     }
+  //   },
+  //   mounted () {
+  //     this.init()
+  //   },
+  //   methods: {
+  //     init () {
+  //       if (this.isContest) {
+  //         this.getContestAnnouncementList()
+  //       } else {
+  //         this.getAnnouncementList()
+  //       }
+  //     },
+  //     getAnnouncementList (page = 1) {
+  //       let params = {
+  //         limit: this.limit,
+  //         offset: (page - 1) * this.limit
+  //       }
+  //       this.btnLoading = true
+  //       api.getAnnouncementList(params).then(res => {
+  //         this.btnLoading = false
+  //         this.announcements = res.data.data.results
+  //         this.total = res.data.data.total
+  //       }, () => {
+  //         this.btnLoading = false
+  //       })
+  //     },
+  //     getContestAnnouncementList () {
+  //       this.btnLoading = true
+  //       api.getContestAnnouncementList(this.$route.params.contestID).then(res => {
+  //         this.btnLoading = false
+  //         this.announcements = res.data.data
+  //       }, () => {
+  //         this.btnLoading = false
+  //       })
+  //     },
+  //     goAnnouncement (announcement) {
+  //       this.announcement = announcement
+  //       this.listVisible = false
+  //     },
+  //     goBack () {
+  //       this.listVisible = true
+  //       this.announcement = ''
+  //     }
+  //   },
+  //   computed: {
+  //     title () {
+  //       if (this.listVisible) {
+  //         return this.isContest ? 'Contest Announcements' : 'Announcements'
+  //       } else {
+  //         return this.announcement.title
+  //       }
+  //     },
+  //     isContest () {
+  //       return !!this.$route.params.contestID
+  //     }
+  //   }
+  // }
 </script>
 
 <style scoped lang="less">

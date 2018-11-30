@@ -17,7 +17,7 @@
     <template v-else>
       <div class="flex-container">
         <div class="cropper-main inline">
-          <vueCropper
+          <!-- <vueCropper
             ref="cropper"
             autoCrop
             fixed
@@ -28,7 +28,7 @@
             :outputType="avatarOption.outputType"
             :info="true"
             @realTime="realTime">
-          </vueCropper>
+          </vueCropper> -->
         </div>
         <ButtonGroup vertical class="cropper-btn">
           <Button @click="rotate('left')">
@@ -109,14 +109,14 @@
 <script>
   import api from '@oj/api'
   import utils from '@/utils/utils'
-  import vueCropper from 'vue-cropper'
+  // import vueCropper from 'vue-cropper'
   import {types} from '@/store'
   import {languages} from '@/i18n'
-
+  // const vueCropper = () => import('vue-cropper')
   export default {
-    components: {
-      vueCropper
-    },
+    // components: {
+    //   vueCropper
+    // },
     data () {
       return {
         loadingSaveBtn: false,

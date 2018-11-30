@@ -18,24 +18,24 @@
         </div>
     </div>
     </div>
-    <Latestnews class="announcement"></Latestnews>
+    <!-- <Latestnews class="announcement"></Latestnews>
     <div style="margin-top: 58px;position: relative;">
       <Latestproblem class="latestproblem"></Latestproblem>
       <Ranking class="ranking"></Ranking>
       <Newgame class="newgame"></Newgame>
       <Advert class="btn-img"></Advert>
-    </div>
+    </div> -->
     </Col>
   </Row>
 </template>
 
 <script>
-  import Announcements from './Announcements.vue'
-  import Latestnews from './Latestnews.vue'
-  import Latestproblem from './Latestproblem.vue'
-  import Ranking from './ranking.vue'
-  import Newgame from './newgame.vue'
-  import Advert from './advert.vue'
+  // import Announcements from '@oj/views/general/Announcements.vue'
+  // import Latestnews from '@oj/views/general/Latestnews.vue'
+  // import Latestproblem from '@oj/views/general/Latestproblem.vue'
+  // import Ranking from '@oj/views/general/ranking.vue'
+  // import Newgame from '@oj/views/general/newgame.vue'
+  // import Advert from '@oj/views/general/advert.vue'
   import api from '@oj/api'
   import time from '@/utils/time'
   import { CONTEST_STATUS } from '@/utils/constants'
@@ -43,12 +43,12 @@
   export default {
     name: 'home',
     components: {
-      Announcements,
-      Latestnews,
-      Latestproblem,
-      Ranking,
-      Newgame,
-      Advert
+      // Announcements,
+      // Latestnews,
+      // Latestproblem,
+      // Ranking,
+      // Newgame,
+      // Advert
     },
     data () {
       return {

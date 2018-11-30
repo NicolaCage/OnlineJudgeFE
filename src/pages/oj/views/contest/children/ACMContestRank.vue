@@ -36,28 +36,28 @@
       <ECharts :options="options" ref="chart" auto-resize></ECharts>
     </div>
     <Table ref="tableRank" class="auto-resize" :columns="columns" :data="dataRank" disabled-hover></Table>
-    <Pagination :total="total"
+    <!-- <Pagination :total="total"
                 :page-size.sync="limit"
                 :current.sync="page"
                 @on-change="getContestRankData"
                 @on-page-size-change="getContestRankData(1)"
-                show-sizer></Pagination>
+                show-sizer></Pagination> -->
   </Panel>
 </template>
 <script>
   import moment from 'moment'
   import { mapActions } from 'vuex'
-
-  import Pagination from '@oj/components/Pagination'
-  import ContestRankMixin from './contestRankMixin'
+  const ContestRankMixin = () => import('./contestRankMixin')
+  // import Pagination from '@oj/components/Pagination'
+  // import ContestRankMixin from './contestRankMixin'
   import time from '@/utils/time'
   import utils from '@/utils/utils'
 
   export default {
     name: 'acm-contest-rank',
-    components: {
-      Pagination
-    },
+    // components: {
+    //   Pagination
+    // },
     mixins: [ContestRankMixin],
     data () {
       return {

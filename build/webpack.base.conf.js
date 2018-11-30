@@ -6,15 +6,17 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
-
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractLESS = new ExtractTextPlugin('stylesheets/[name]-two.css');
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
 function getEntries () {
   const base = {
-    'oj': ['./src/pages/oj/index.js'],
-    'admin': ['./src/pages/admin/index.js']
+    'oj': ['./src/pages/oj/entry-client.js']
+    // 'admin': ['./src/pages/admin/index.js']
   }
   if (process.env.USE_SENTRY === '1') {
     Object.keys(base).forEach(entry => {
@@ -72,6 +74,11 @@ module.exports = {
       //     formatter: require('eslint-friendly-formatter')
       //   }
       // },
+      
+      {
+        test: /\.less$/i,
+        use: extractLESS.extract([ 'css-loader', 'vue-style-loader' ])
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -99,6 +106,10 @@ module.exports = {
           name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
+      // {
+      //   test: /\.css$/i,   
+      //   loader: ["vue-style-loader", "css-loader"]
+      // },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
@@ -110,6 +121,7 @@ module.exports = {
     ]
   },
   plugins: [
+    extractLESS,
     new webpack.DllReferencePlugin({
       context: __dirname,
       manifest: require('./vendor-manifest.json')
@@ -119,5 +131,32 @@ module.exports = {
       files: ['index.html', 'admin/index.html'],
       append: false
     }),
+    new SWPrecacheWebpackPlugin({
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'service-worker.js',
+      logger(message) {
+        if (message.indexOf('Total precache size is') === 0) {
+          return;
+        }
+        if (message.indexOf('Skipping static resource') === 0) {
+          return;
+        }
+        console.log(message);
+      },
+      navigateFallback: 'https://www.xiaohuochai.cc',
+      minify: true,
+      navigateFallbackWhitelist: [/^(?!\/__).*/],
+      dontCacheBustUrlsMatching: /./,
+      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+      runtimeCaching: [{
+          urlPattern: '/',
+          handler: 'networkFirst'
+        },
+        {
+          urlPattern: /\/(posts|categories|users|likes|comments)/,
+          handler: 'networkFirst'
+        }
+      ]
+    })
   ]
 }

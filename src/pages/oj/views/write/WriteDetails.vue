@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">{{title}}</p>
+    <!-- <p class="title">{{title}}</p>
     <div class="content-tags"><Tag type="dot" :color="status.color" class="tags">{{status.name}}</Tag></div>
     <div class="content-choice">
       <template v-for="(item,index) in question">
@@ -16,68 +16,69 @@
           </RadioGroup>
       </template><br/>
     </div>
-    <Button @click="submit" class="btn" :disabled="!isstatus" :class="{active:isstatus}">提交试题</Button>
+    <Button @click="submit" class="btn" :disabled="!isstatus" :class="{active:isstatus}">提交试题</Button> -->
+    fdsafdsafd
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import api from '@oj/api'
-  import { CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
-  export default {
-    data () {
-        return {
-            question: [0],
-            choice:[{'question':1,'answer':0}],
-            title:'',
-            animal: '',
-            id:'',
-            status:{},
-            isstatus:false
-        }
-    },
-    beforeCreate () {
-      this.choice=[],
-      api.getWrite(parseInt(this.$route.params.WriteID)).then((res) => {
-         this.question=res.data.data.question_list,
-         this.title=res.data.data.title,
-         this.id=res.data.data.id,
-         this.status=CONTEST_STATUS_REVERSE[res.data.data.status],
-         this.isstatus=(res.data.data.status==0),
-         this.question.forEach((value,index,array)=>{
-            this.choice.push({'question':value.id,'answer':0})
-         })
-      })
-    },
-    methods:{
-      submit(){
-        console.log(this.choice)
-        for(var i=0;i<this.choice.length;i++){
-              if(this.choice[i].answer==0){
-                if(confirm('您还有第'+(i+1)+'题没做,你确定提交吗？')){
-                  break;
-                }else{
-                  return;
-                }
-              }
-            }
-        let data={
-          'subject':this.id,
-          'answer_list':this.choice
-        }
-        api.answer(data).then(res => {
-            this.$router.push({name: 'result', params: {AnswerID: res.data.data.id}})
-        })
-      }
-    },
-    name: 'write-details',
-    components: {
+  // import { mapGetters } from 'vuex'
+  // import api from '@oj/api'
+  // import { CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
+  // export default {
+  //   data () {
+  //       return {
+  //           question: [0],
+  //           choice:[{'question':1,'answer':0}],
+  //           title:'',
+  //           animal: '',
+  //           id:'',
+  //           status:{},
+  //           isstatus:false
+  //       }
+  //   },
+  //   beforeCreate () {
+  //     this.choice=[],
+  //     api.getWrite(parseInt(this.$route.params.WriteID)).then((res) => {
+  //        this.question=res.data.data.question_list,
+  //        this.title=res.data.data.title,
+  //        this.id=res.data.data.id,
+  //        this.status=CONTEST_STATUS_REVERSE[res.data.data.status],
+  //        this.isstatus=(res.data.data.status==0),
+  //        this.question.forEach((value,index,array)=>{
+  //           this.choice.push({'question':value.id,'answer':0})
+  //        })
+  //     })
+  //   },
+  //   methods:{
+  //     submit(){
+  //       console.log(this.choice)
+  //       for(var i=0;i<this.choice.length;i++){
+  //             if(this.choice[i].answer==0){
+  //               if(confirm('您还有第'+(i+1)+'题没做,你确定提交吗？')){
+  //                 break;
+  //               }else{
+  //                 return;
+  //               }
+  //             }
+  //           }
+  //       let data={
+  //         'subject':this.id,
+  //         'answer_list':this.choice
+  //       }
+  //       api.answer(data).then(res => {
+  //           this.$router.push({name: 'result', params: {AnswerID: res.data.data.id}})
+  //       })
+  //     }
+  //   },
+  //   name: 'write-details',
+  //   components: {
 
-    },
-    computed: {
+  //   },
+  //   computed: {
 
-    }
-  }
+  //   }
+  // }
 </script>
 <style lang="less" scoped>
 .title{

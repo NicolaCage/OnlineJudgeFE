@@ -1,7 +1,7 @@
 <template>
   <Row type="flex" :gutter="18">
 
-    <Col :span="5">
+    <!-- <Col :span="5">
     <p class="tag-title">选择筛选标签</p>
     <Cascader :data="data" v-model="value1" class="cascader" size="large" @on-change="selecTags" placeholder="请选择筛选标签"></Cascader>
     <Panel :padding="10">
@@ -37,13 +37,13 @@
                 <Dropdown-item name="High">高阶</Dropdown-item>
               </Dropdown-menu>
             </Dropdown>
-          </li>
+          </li>-->
           <!-- <li>
             <i-switch size="large" @on-change="handleTagsVisible">
               <span slot="open">开</span>
               <span slot="close">关</span>
             </i-switch>
-          </li> -->
+          </li> --> <!--
           <li>
             <Input v-model="query.keyword"
                    @on-enter="filterByKeyword"
@@ -85,214 +85,214 @@
       </div>
     </Panel>
     <Pagination :total="total" :page-size="limit" @on-change="pushRouter" :current.sync="query.page"></Pagination>
-
-    </Col>
+    </Col>--> 
+    <div>fdsafdsafds</div>
   </Row>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import api from '@oj/api'
-  import utils from '@/utils/utils'
-  import { ProblemMixin } from '@oj/components/mixins'
-  import Pagination from '@oj/components/Pagination'
+  // import { mapGetters } from 'vuex'
+  // import api from '@oj/api'
+  // import utils from '@/utils/utils'
+  // import { ProblemMixin } from '@oj/components/mixins'
+  // import Pagination from '@oj/components/Pagination'
 
-  export default {
-    name: 'ProblemList',
-    mixins: [ProblemMixin],
-    components: {
-      Pagination
-    },
-    data () {
-      return {
-        value1:[],
-        tagList: [],
-        problemList: [],
-        limit: 20,
-        total: 0,
-        loadings: {
-          table: true,
-          tag: true
-        },
-        data:[],
-        routeName: '',
-        query: {
-          keyword: '',
-          difficulty: '',
-          tag: '',
-          page: 1
-        }
-      }
-    },
-    mounted () {
-      this.init()
-    },
-    methods: {
-      init (simulate = false) {
-        console.log(11)
-        this.routeName = this.$route.name
-        let query = this.$route.query
-        this.query.difficulty = query.difficulty || ''
-        this.query.keyword = query.keyword || ''
-        this.query.tags = query.tags || ''
-        this.query.page = parseInt(query.page) || 1
-        if (this.query.page < 1) {
-          this.query.page = 1
-        }
-        this.getTagList()
-        this.getProblemList()
-      },
-      pushRouter () {
-        this.$router.push({
-          name: 'problem-list',
-          query: utils.filterEmptyValue(this.query)
-        })
-      },
-      deletes(delIndex,arr){
-          var temArray=[];
-          for(var i=0;i<arr.length;i++){
-            if(i!=delIndex){
-              temArray.push(arr[i]);
-            }
-          }
-          return temArray;
-      },
-      getProblemList () {
-        let offset = (this.query.page - 1) * this.limit
-        this.loadings.table = true
-        api.getProblemList(offset, this.limit, this.query).then(res => {
-          this.loadings.table = false
-          this.total = res.data.data.total
-          this.problemList = res.data.data.results
-          if (this.isAuthenticated) {
-            this.addStatusColumn(this.problemTableColumns, res.data.data.results)
-          }
-        }, res => {
-          this.loadings.table = false
-        })
-      },
-      goProblem(id){
-            this.$router.push({name: 'problem-details', params: {problemID: id}})
-      },
-      getTagList () {
-        api.getTags().then(res=>{
-          this.data=res.data.data
-          this.loadings.tag = false
-          let arr=this.query.tags.split(",")
-          if(arr){
-            //1.使用后台数据遍历判断
-            // arr.forEach((v,i)=>{
-            //     this.data.forEach((obj,j)=>{
-            //       if(obj.value==v){
-            //         this.tagList.push(obj)
-            //       }
-            //   })
-            // })
-            //2.使用缓存
-            let storage=window.localStorage;
-            this.tagList=JSON.parse(localStorage['localdata']).tagList
-          }
-        }) 
-      },
-      Delete(index){
-        this.tagList=this.deletes(index,this.tagList)
-        let localdata={'tagList':this.tagList}
-        localStorage.setItem("localdata", JSON.stringify(localdata))
-        this.filterByTag()
-      },
-      filterByTag () {
-        let arr=''
-        this.tagList.forEach((v,i)=>{
-           if(i==this.tagList.length-1){
-              arr=arr+(v.value)
-           }else{
-              arr=arr+(v.value)+','
-           }
-        })
-        this.query.tags = []
-        this.query.tags = arr
-        this.query.page = 1
-        this.pushRouter()
-      },
-      filterByDifficulty (difficulty) {
-        this.query.difficulty = difficulty
-        this.query.page = 1
-        this.pushRouter()
-      },
-      filterByKeyword () {
-        this.query.page = 1
-        this.pushRouter()
-      },
-      handleTagsVisible (value) {
-        if (value) {
-          this.problemTableColumns.push(
-            {
-              title: 'Tags',
-              align: 'center',
-              render: (h, params) => {
-                let tags = []
-                params.row.tags.forEach(tag => {
-                  tags.push(h('Tag', {}, tag))
-                })
-                return h('div', {
-                  style: {
-                    margin: '8px 0'
-                  }
-                }, tags)
-              }
-            })
-        } else {
-          this.problemTableColumns.splice(this.problemTableColumns.length - 1, 1)
-        }
-      },
-      onReset () {
-        this.$router.push({name: 'problem-list'})
-      },
-      pickone () {
-        api.pickone().then(res => {
-          this.$success('Good Luck')
-          this.$router.push({name: 'problem-details', params: {problemID: res.data.data}})
-        })
-      },
-      selecTags(value,selectedData){
-        let data = selectedData.pop(),isVal=true;
-        let storage=window.localStorage;
-        this.value1=[]
-        this.tagList.forEach((v,i)=>{
-            if(data.value==v.value){
-              isVal=false
-            }
-        })
-        if(isVal){
-          this.tagList.push(data)
-          let localdata={'tagList':this.tagList}
-          localStorage.setItem("localdata", JSON.stringify(localdata))
-          this.filterByTag()
-        } 
-      }
-    },
-    filters: {
-        ac(val){
-            val=val*100;
-            return val.toFixed(2)+'%';
-        }
-    },
-    computed: {
-      ...mapGetters(['isAuthenticated'])
-    },
-    watch: {
-      '$route' (newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.init(true)
-        }
-      },
-      'isAuthenticated' (newVal) {
-        if (newVal === true) {
-          this.init()
-        }
-      }
-    }
-  }
+  // export default {
+  //   name: 'ProblemList',
+  //   mixins: [ProblemMixin],
+  //   components: {
+  //     Pagination
+  //   },
+  //   data () {
+  //     return {
+  //       value1:[],
+  //       tagList: [],
+  //       problemList: [],
+  //       limit: 20,
+  //       total: 0,
+  //       loadings: {
+  //         table: true,
+  //         tag: true
+  //       },
+  //       data:[],
+  //       routeName: '',
+  //       query: {
+  //         keyword: '',
+  //         difficulty: '',
+  //         tag: '',
+  //         page: 1
+  //       }
+  //     }
+  //   },
+  //   mounted () {
+  //     this.init()
+  //   },
+  //   methods: {
+  //     init (simulate = false) {
+  //       console.log(11)
+  //       this.routeName = this.$route.name
+  //       let query = this.$route.query
+  //       this.query.difficulty = query.difficulty || ''
+  //       this.query.keyword = query.keyword || ''
+  //       this.query.tags = query.tags || ''
+  //       this.query.page = parseInt(query.page) || 1
+  //       if (this.query.page < 1) {
+  //         this.query.page = 1
+  //       }
+  //       this.getTagList()
+  //       this.getProblemList()
+  //     },
+  //     pushRouter () {
+  //       this.$router.push({
+  //         name: 'problem-list',
+  //         query: utils.filterEmptyValue(this.query)
+  //       })
+  //     },
+  //     deletes(delIndex,arr){
+  //         var temArray=[];
+  //         for(var i=0;i<arr.length;i++){
+  //           if(i!=delIndex){
+  //             temArray.push(arr[i]);
+  //           }
+  //         }
+  //         return temArray;
+  //     },
+  //     getProblemList () {
+  //       let offset = (this.query.page - 1) * this.limit
+  //       this.loadings.table = true
+  //       api.getProblemList(offset, this.limit, this.query).then(res => {
+  //         this.loadings.table = false
+  //         this.total = res.data.data.total
+  //         this.problemList = res.data.data.results
+  //         if (this.isAuthenticated) {
+  //           this.addStatusColumn(this.problemTableColumns, res.data.data.results)
+  //         }
+  //       }, res => {
+  //         this.loadings.table = false
+  //       })
+  //     },
+  //     goProblem(id){
+  //           this.$router.push({name: 'problem-details', params: {problemID: id}})
+  //     },
+  //     getTagList () {
+  //       api.getTags().then(res=>{
+  //         this.data=res.data.data
+  //         this.loadings.tag = false
+  //         let arr=this.query.tags.split(",")
+  //         if(arr){
+  //           //1.使用后台数据遍历判断
+  //           // arr.forEach((v,i)=>{
+  //           //     this.data.forEach((obj,j)=>{
+  //           //       if(obj.value==v){
+  //           //         this.tagList.push(obj)
+  //           //       }
+  //           //   })
+  //           // })
+  //           //2.使用缓存
+  //           let storage=window.localStorage;
+  //           this.tagList=JSON.parse(localStorage['localdata']).tagList
+  //         }
+  //       }) 
+  //     },
+  //     Delete(index){
+  //       this.tagList=this.deletes(index,this.tagList)
+  //       let localdata={'tagList':this.tagList}
+  //       localStorage.setItem("localdata", JSON.stringify(localdata))
+  //       this.filterByTag()
+  //     },
+  //     filterByTag () {
+  //       let arr=''
+  //       this.tagList.forEach((v,i)=>{
+  //          if(i==this.tagList.length-1){
+  //             arr=arr+(v.value)
+  //          }else{
+  //             arr=arr+(v.value)+','
+  //          }
+  //       })
+  //       this.query.tags = []
+  //       this.query.tags = arr
+  //       this.query.page = 1
+  //       this.pushRouter()
+  //     },
+  //     filterByDifficulty (difficulty) {
+  //       this.query.difficulty = difficulty
+  //       this.query.page = 1
+  //       this.pushRouter()
+  //     },
+  //     filterByKeyword () {
+  //       this.query.page = 1
+  //       this.pushRouter()
+  //     },
+  //     handleTagsVisible (value) {
+  //       if (value) {
+  //         this.problemTableColumns.push(
+  //           {
+  //             title: 'Tags',
+  //             align: 'center',
+  //             render: (h, params) => {
+  //               let tags = []
+  //               params.row.tags.forEach(tag => {
+  //                 tags.push(h('Tag', {}, tag))
+  //               })
+  //               return h('div', {
+  //                 style: {
+  //                   margin: '8px 0'
+  //                 }
+  //               }, tags)
+  //             }
+  //           })
+  //       } else {
+  //         this.problemTableColumns.splice(this.problemTableColumns.length - 1, 1)
+  //       }
+  //     },
+  //     onReset () {
+  //       this.$router.push({name: 'problem-list'})
+  //     },
+  //     pickone () {
+  //       api.pickone().then(res => {
+  //         this.$success('Good Luck')
+  //         this.$router.push({name: 'problem-details', params: {problemID: res.data.data}})
+  //       })
+  //     },
+  //     selecTags(value,selectedData){
+  //       let data = selectedData.pop(),isVal=true;
+  //       let storage=window.localStorage;
+  //       this.value1=[]
+  //       this.tagList.forEach((v,i)=>{
+  //           if(data.value==v.value){
+  //             isVal=false
+  //           }
+  //       })
+  //       if(isVal){
+  //         this.tagList.push(data)
+  //         let localdata={'tagList':this.tagList}
+  //         localStorage.setItem("localdata", JSON.stringify(localdata))
+  //         this.filterByTag()
+  //       } 
+  //     }
+  //   },
+  //   filters: {
+  //       ac(val){
+  //           val=val*100;
+  //           return val.toFixed(2)+'%';
+  //       }
+  //   },
+  //   computed: {
+  //     ...mapGetters(['isAuthenticated'])
+  //   },
+  //   watch: {
+  //     '$route' (newVal, oldVal) {
+  //       if (newVal !== oldVal) {
+  //         this.init(true)
+  //       }
+  //     },
+  //     'isAuthenticated' (newVal) {
+  //       if (newVal === true) {
+  //         this.init()
+  //       }
+  //     }
+  //   }
+  // }
 </script>
 
 <style scoped lang="less">

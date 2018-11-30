@@ -61,7 +61,7 @@
               <el-col :span="2"><div class="text">{{announcement.username}}</div></el-col>
           </el-row>
         </div>
-        <Pagination :total="total" :page-size="limit" @on-change="changeRoute" :current.sync="page"></Pagination>
+        <!-- <Pagination :total="total" :page-size="limit" @on-change="changeRoute" :current.sync="page"></Pagination> -->
       </Panel>
     </div>
   </div>
@@ -73,13 +73,13 @@
   import { JUDGE_STATUS, USER_TYPE } from '@/utils/constants'
   import utils from '@/utils/utils'
   import time from '@/utils/time'
-  import Pagination from '@/pages/oj/components/Pagination'
+  // import Pagination from '@/pages/oj/components/Pagination'
 
   export default {
     name: 'submissionList',
-    components: {
-      Pagination
-    },
+    // components: {
+    //   Pagination
+    // },
     data () {
       return {
         formFilter: {

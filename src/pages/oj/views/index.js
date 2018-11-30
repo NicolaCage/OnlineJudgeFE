@@ -1,18 +1,25 @@
-import ProblemList from './problem/ProblemList.vue'
-import Logout from './user/Logout.vue'
-import UserHome from './user/UserHome.vue'
-import About from './help/About.vue'
-import FAQ from './help/FAQ.vue'
-import NotFound from './general/404.vue'
-import Home from './general/Home.vue'
-import Announcements from './general/Announcements.vue'
-
+// import ProblemList from ' @oj/views/problem/ProblemList.vue'
+// import Logout from '@oj/views/user/Logout.vue'
+// import UserHome from '@oj/views/user/UserHome.vue'
+// import About from '@oj/views/help/About.vue'
+// import FAQ from '@oj/views/help/FAQ.vue'
+// import NotFound from '@oj/views/general/404.vue'
+// import Home from '@oj/views/general/Home.vue'
+// import Announcements from '@oj/views/general/Announcements.vue'
+const ProblemList = () => import(/* webpackChunkName: "problem" */ '@oj/views/problem/ProblemList.vue')
+const Logout = () => import(/* webpackChunkName: "Logout" */ '@oj/views/user/Logout.vue')
+const UserHome = () => import(/* webpackChunkName: "user" */ '@oj/views/user/UserHome.vue')
+const About = () => import(/* webpackChunkName: "help" */ '@oj/views/help/About.vue')
+const FAQ = () => import(/* webpackChunkName: "help" */ '@oj/views/help/FAQ.vue')
+const NotFound = () => import(/* webpackChunkName: "general" */ '@oj/views/general/404.vue')
+const Home = () => import(/* webpackChunkName: "general" */ '@oj/views/general/Home.vue')
+const Announcements = () => import(/* webpackChunkName: "general" */ '@oj/views/general/Announcements.vue')
 // Grouping Components in the Same Chunk
 const SubmissionList = () => import(/* webpackChunkName: "submission" */ '@oj/views/submission/SubmissionList.vue')
 const SubmissionDetails = () => import(/* webpackChunkName: "submission" */ '@oj/views/submission/SubmissionDetails.vue')
 
-const ACMRank = () => import(/* webpackChunkName: "userRank" */ '@oj/views/rank/ACMRank.vue')
-const OIRank = () => import(/* webpackChunkName: "userRank" */ '@oj/views/rank/OIRank.vue')
+const ACMRank = () => import(/* webpackChunkName: "rank" */ '@oj/views/rank/ACMRank.vue')
+const OIRank = () => import(/* webpackChunkName: "rank" */ '@oj/views/rank/OIRank.vue')
 
 const ApplyResetPassword = () => import(/* webpackChunkName: "password" */ '@oj/views/user/ApplyResetPassword.vue')
 const ResetPassword = () => import(/* webpackChunkName: "password" */ '@oj/views/user/ResetPassword.vue')

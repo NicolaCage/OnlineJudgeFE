@@ -1,6 +1,6 @@
 import 'katex'
 import renderMathInElement from 'katex/contrib/auto-render/auto-render'
-import 'katex/dist/katex.min.css'
+// import 'katex/dist/katex.min.css'
 
 function _ () {
 }
